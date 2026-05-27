@@ -142,8 +142,6 @@ export default {
 <style scoped>
 .works-page {
   width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
   padding: 0 0 40px 0;
 }
 
