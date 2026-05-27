@@ -120,6 +120,8 @@ export default {
 <style scoped>
 .home {
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .hero {
