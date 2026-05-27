@@ -77,7 +77,7 @@ body {
   font-family: var(--font-body);
   margin: 0;
   padding: 0;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 #app {
@@ -104,7 +104,10 @@ body {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
+  max-width: 1440px;
   margin: 0 auto;
+  left: 0;
+  right: 0;
 }
 
 .nav-center {
