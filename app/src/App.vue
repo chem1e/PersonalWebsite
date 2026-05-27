@@ -91,8 +91,8 @@ body {
 .navbar {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -104,8 +104,7 @@ body {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
-  width: 100%;
-  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .nav-center {
