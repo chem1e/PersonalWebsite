@@ -18,7 +18,6 @@
 
     <!-- About -->
     <section class="about">
-      <div class="about-line"></div>
       <div class="about-content">
         <div class="about-tag">ABOUT</div>
         <div class="about-text">
@@ -32,7 +31,7 @@
       </div>
     </section>
 
-    <!-- Ticker (full width) -->
+    <!-- Ticker -->
     <div class="ticker-wrapper">
       <div class="ticker">
         <span v-for="n in 6" :key="n">
@@ -53,7 +52,7 @@
         <div
           v-for="(work, i) in featuredWorks"
           :key="i"
-          class="featured-card"
+          class="featured-card reveal"
           @click="$router.push('/works')"
         >
           <div class="card-img">
@@ -120,21 +119,36 @@ export default {
   width: 100%;
 }
 
-/* Hero Section */
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+/*
+  KEY FIX: Removed `min-height: calc(100vh - 57px)` and `align-items: center`.
+  The hero now sizes itself to its content. The photo column uses `align-self:
+  stretch` so the image fills the full column height without creating empty
+  space. gap is tightened and padding-bottom is added so the photo bleeds to
+  the section edge naturally.
+*/
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 60px;
-  padding: 80px 40px 0 40px;
-  min-height: calc(100vh - 57px);
+  grid-template-columns: 1fr 42%;
+  gap: 0;
+  padding: 60px 0 0 40px;
+  border-bottom: 1px solid var(--light-gray);
+  overflow: hidden;
+}
+
+.hero-text {
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-right: 40px;
 }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(70px, 12vw, 180px);
+  font-size: clamp(80px, 11vw, 160px);
   font-weight: 800;
-  line-height: 0.9;
+  line-height: 0.88;
   letter-spacing: -0.03em;
   color: var(--black);
 }
@@ -145,24 +159,23 @@ export default {
   font-weight: 600;
   letter-spacing: 0.18em;
   color: var(--gray);
-  margin-top: 28px;
+  margin-top: 24px;
 }
 
 .hero-photo {
   position: relative;
-  width: 100%;
-  align-self: flex-end;
+  align-self: stretch; /* fills column height exactly — no dead space */
+  overflow: hidden;
 }
 
 .hero-img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
+  height: 100%;
+  min-height: 420px;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 15%;
   display: block;
   filter: grayscale(15%);
-  max-height: 80vh;
 }
 
 .photo-label {
@@ -178,17 +191,10 @@ export default {
   letter-spacing: 0.12em;
 }
 
-/* About */
+/* ── About ────────────────────────────────────────────────────────────────── */
 .about {
-  padding: 80px 40px;
-  border-top: 1px solid var(--light-gray);
-}
-
-.about-line {
-  width: 100%;
-  height: 1px;
-  background: var(--black);
-  margin-bottom: 60px;
+  padding: 70px 40px;
+  border-bottom: 1px solid var(--light-gray);
 }
 
 .about-content {
@@ -204,18 +210,19 @@ export default {
   font-weight: 700;
   letter-spacing: 0.15em;
   color: var(--gray);
+  padding-top: 6px;
 }
 
 .about-text {
   flex: 1;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 300;
-  line-height: 1.6;
-  max-width: 600px;
+  line-height: 1.65;
+  max-width: 580px;
 }
 
 .about-text p {
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 .cta-link {
@@ -236,16 +243,16 @@ export default {
   gap: 16px;
 }
 
-/* Ticker – full width */
+/* ── Ticker ───────────────────────────────────────────────────────────────── */
 .ticker-wrapper {
   width: 100%;
-  overflow-x: hidden;
-}
-.ticker {
   overflow: hidden;
+}
+
+.ticker {
   border-top: 1px solid var(--light-gray);
   border-bottom: 1px solid var(--light-gray);
-  padding: 20px 0;
+  padding: 18px 0;
   background: var(--black);
   white-space: nowrap;
   font-family: var(--font-display);
@@ -254,10 +261,12 @@ export default {
   letter-spacing: 0.12em;
   color: var(--white);
 }
+
 .ticker span {
   display: inline-block;
   animation: tickerScroll 30s linear infinite;
 }
+
 @keyframes tickerScroll {
   0% {
     transform: translateX(0);
@@ -267,16 +276,16 @@ export default {
   }
 }
 
-/* Featured Works */
+/* ── Featured Works ───────────────────────────────────────────────────────── */
 .featured {
-  padding: 80px 40px;
+  padding: 70px 40px 80px;
 }
 
 .featured-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 50px;
+  margin-bottom: 44px;
 }
 
 .section-label {
@@ -303,7 +312,7 @@ export default {
 .featured-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 28px;
 }
 
 .featured-card {
@@ -331,7 +340,7 @@ export default {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  padding: 16px 0 0;
+  padding: 14px 0 0;
 }
 
 .card-num {
@@ -359,32 +368,41 @@ export default {
   padding: 3px 8px;
 }
 
-/* Mobile */
+/* ── Mobile ───────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero {
     grid-template-columns: 1fr;
+    padding: 50px 20px 0;
     gap: 40px;
-    padding: 60px 20px 0 20px;
+  }
+  .hero-text {
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+  .hero-photo {
+    margin: 0 -20px; /* bleed to edges on mobile */
   }
   .hero-img {
-    aspect-ratio: 3/4;
+    min-height: 380px;
+    aspect-ratio: 4/5;
+    height: auto;
+  }
+  .about {
+    padding: 50px 20px;
   }
   .about-content {
     flex-direction: column;
-    gap: 30px;
+    gap: 24px;
   }
   .about-tag {
     flex: auto;
   }
+  .featured {
+    padding: 50px 20px 60px;
+  }
   .featured-grid {
     grid-template-columns: 1fr;
     gap: 40px;
-  }
-  .featured {
-    padding: 60px 20px;
-  }
-  .about {
-    padding: 60px 20px;
   }
 }
 </style>
