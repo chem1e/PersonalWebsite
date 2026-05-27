@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <!-- Hero Section -->
     <section class="hero">
       <div class="hero-text">
         <h1 class="hero-name">RYAN<br />CHEN</h1>
@@ -16,7 +15,6 @@
       </div>
     </section>
 
-    <!-- About Section -->
     <section class="about-section">
       <div class="about-line reveal"></div>
       <div class="about-content">
@@ -36,18 +34,19 @@
       </div>
     </section>
 
-    <!-- Scrolling ticker (full width) -->
-    <div class="ticker-wrap reveal">
-      <div class="ticker">
-        <span v-for="n in 6" :key="n">
-          BRAND STRATEGY &nbsp;&nbsp;·&nbsp;&nbsp; CREATIVE TECH &nbsp;&nbsp;·&nbsp;&nbsp;
-          ILLUSTRATION &nbsp;&nbsp;·&nbsp;&nbsp; MOTION &nbsp;&nbsp;·&nbsp;&nbsp; PRODUCT
-          &nbsp;&nbsp;·&nbsp;&nbsp; UX RESEARCH &nbsp;&nbsp;·&nbsp;&nbsp;
-        </span>
+    <!-- Improved "ticker" wrapper with a more robust full-width technique -->
+    <div class="ticker-wrapper">
+      <div class="ticker-wrap reveal">
+        <div class="ticker">
+          <span v-for="n in 6" :key="n">
+            BRAND STRATEGY &nbsp;&nbsp;·&nbsp;&nbsp; CREATIVE TECH &nbsp;&nbsp;·&nbsp;&nbsp;
+            ILLUSTRATION &nbsp;&nbsp;·&nbsp;&nbsp; MOTION &nbsp;&nbsp;·&nbsp;&nbsp; PRODUCT
+            &nbsp;&nbsp;·&nbsp;&nbsp; UX RESEARCH &nbsp;&nbsp;·&nbsp;&nbsp;
+          </span>
+        </div>
       </div>
     </div>
 
-    <!-- Featured work preview -->
     <section class="featured reveal">
       <div class="featured-header">
         <span class="section-label">SELECTED WORKS</span>
@@ -126,13 +125,12 @@ export default {
   width: 100%;
 }
 
-/* Hero – now symmetric padding */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 60px;
-  padding: 80px 40px 0 40px; /* balanced left and right */
+  padding: 80px 40px 0 40px;
   min-height: calc(100vh - 57px);
 }
 
@@ -162,12 +160,13 @@ export default {
 
 .hero-img {
   width: 100%;
-  height: 70vh;
-  min-height: 400px;
+  height: auto;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: center 20%;
   display: block;
   filter: grayscale(15%);
+  max-height: 80vh;
 }
 
 .photo-label {
@@ -183,7 +182,6 @@ export default {
   letter-spacing: 0.12em;
 }
 
-/* About */
 .about-section {
   padding: 80px 40px;
   border-top: 1px solid var(--light-gray);
@@ -244,19 +242,18 @@ export default {
   gap: 16px;
 }
 
-/* Ticker (full width) */
+/* Improved, more robust full-width ticker */
+.ticker-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+}
 .ticker-wrap {
   overflow: hidden;
   border-top: 1px solid var(--light-gray);
   border-bottom: 1px solid var(--light-gray);
   padding: 20px 0;
   background: var(--black);
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 100%;
 }
 
 .ticker {
@@ -280,7 +277,6 @@ export default {
   }
 }
 
-/* Featured */
 .featured {
   padding: 80px 40px;
 }
@@ -373,7 +369,6 @@ export default {
   padding: 3px 8px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .hero {
     grid-template-columns: 1fr;
@@ -381,7 +376,7 @@ export default {
     padding: 60px 20px 0 20px;
   }
   .hero-img {
-    height: 50vh;
+    aspect-ratio: 3/4;
   }
   .about-content {
     flex-direction: column;

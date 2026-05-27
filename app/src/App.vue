@@ -10,7 +10,7 @@
       <div class="nav-right">NYC: {{ currentTime }}</div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-container">
       <router-view v-slot="{ Component }">
         <transition name="page" mode="out-in">
           <component :is="Component" />
@@ -93,8 +93,8 @@ body {
 .navbar {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -106,9 +106,17 @@ body {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
-  width: 100%;
   max-width: 1440px;
-  /* No left/right:0 – uses transform to center */
+  margin: 0 auto;
+}
+
+@media (min-width: 1440px) {
+  .navbar {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    width: 100%;
+  }
 }
 
 .nav-center {
@@ -178,7 +186,7 @@ body {
   transform: translateY(0);
 }
 
-.main-content {
+.main-container {
   padding-top: 57px;
   width: 100%;
 }
