@@ -17,8 +17,6 @@
         </transition>
       </router-view>
     </main>
-
-    <div class="say-hello" @click="$router.push('/contact')">SAY HELLO :)</div>
   </div>
 </template>
 
@@ -124,29 +122,6 @@ body {
 .navbar a:hover,
 .navbar a.router-link-active {
   color: var(--black);
-}
-
-.say-hello {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: var(--white);
-  border: 1.5px solid var(--black);
-  padding: 10px 18px;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  z-index: 99;
-  transition:
-    background 0.2s,
-    color 0.2s;
-}
-
-.say-hello:hover {
-  background: var(--black);
-  color: var(--white);
 }
 
 .page-enter-active,
