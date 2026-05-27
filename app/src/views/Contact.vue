@@ -100,6 +100,8 @@ export default {
 <style scoped>
 .contact-page {
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   min-height: calc(100vh - 57px);
   display: flex;
   flex-direction: column;
