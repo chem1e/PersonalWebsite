@@ -157,9 +157,8 @@ export default {
   letter-spacing: -0.02em;
   line-height: 1;
   margin-bottom: 40px;
-  word-break: keep-all;
-  white-space: nowrap;
-  overflow-x: visible;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .filters {
@@ -327,10 +326,6 @@ export default {
   }
   .edit-hint {
     padding: 30px 20px;
-  }
-  .page-title {
-    white-space: normal;
-    font-size: clamp(40px, 12vw, 80px);
   }
 }
 </style>

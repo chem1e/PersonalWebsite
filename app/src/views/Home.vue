@@ -34,16 +34,13 @@
       </div>
     </section>
 
-    <!-- Improved "ticker" wrapper with a more robust full-width technique -->
-    <div class="ticker-wrapper">
-      <div class="ticker-wrap reveal">
-        <div class="ticker">
-          <span v-for="n in 6" :key="n">
-            BRAND STRATEGY &nbsp;&nbsp;·&nbsp;&nbsp; CREATIVE TECH &nbsp;&nbsp;·&nbsp;&nbsp;
-            ILLUSTRATION &nbsp;&nbsp;·&nbsp;&nbsp; MOTION &nbsp;&nbsp;·&nbsp;&nbsp; PRODUCT
-            &nbsp;&nbsp;·&nbsp;&nbsp; UX RESEARCH &nbsp;&nbsp;·&nbsp;&nbsp;
-          </span>
-        </div>
+    <div class="ticker-wrap reveal">
+      <div class="ticker">
+        <span v-for="n in 6" :key="n">
+          BRAND STRATEGY &nbsp;&nbsp;·&nbsp;&nbsp; CREATIVE TECH &nbsp;&nbsp;·&nbsp;&nbsp;
+          ILLUSTRATION &nbsp;&nbsp;·&nbsp;&nbsp; MOTION &nbsp;&nbsp;·&nbsp;&nbsp; PRODUCT
+          &nbsp;&nbsp;·&nbsp;&nbsp; UX RESEARCH &nbsp;&nbsp;·&nbsp;&nbsp;
+        </span>
       </div>
     </div>
 
@@ -161,7 +158,7 @@ export default {
 .hero-img {
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4/5;
   object-fit: cover;
   object-position: center 20%;
   display: block;
@@ -242,18 +239,18 @@ export default {
   gap: 16px;
 }
 
-/* Improved, more robust full-width ticker */
-.ticker-wrapper {
-  width: 100%;
-  overflow-x: hidden;
-}
 .ticker-wrap {
   overflow: hidden;
   border-top: 1px solid var(--light-gray);
   border-bottom: 1px solid var(--light-gray);
   padding: 20px 0;
   background: var(--black);
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 .ticker {

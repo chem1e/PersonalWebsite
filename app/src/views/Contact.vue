@@ -120,11 +120,12 @@ export default {
 
 .page-title {
   font-family: var(--font-display);
-  font-size: clamp(60px, 9vw, 130px);
+  font-size: clamp(50px, 8vw, 100px);
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1;
+  line-height: 1.1;
   margin-bottom: 50px;
+  word-break: break-word;
 }
 
 .contact-tagline {
@@ -208,6 +209,7 @@ export default {
   display: block;
   filter: grayscale(20%);
   min-height: 500px;
+  max-height: 80vh;
 }
 
 .photo-badge {
@@ -255,6 +257,9 @@ export default {
     gap: 10px;
     text-align: center;
     padding: 20px;
+  }
+  .page-title {
+    font-size: clamp(40px, 12vw, 70px);
   }
 }
 </style>

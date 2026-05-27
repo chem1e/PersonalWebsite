@@ -77,10 +77,9 @@ body {
   font-family: var(--font-body);
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
-/* #app is the main centered container */
 #app {
   max-width: 1440px;
   margin: 0 auto;
@@ -89,12 +88,11 @@ body {
   position: relative;
 }
 
-/* Navbar: always centered relative to viewport, stays inside #app */
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
   display: flex;
   align-items: center;
@@ -106,17 +104,8 @@ body {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
+  width: 100%;
   max-width: 1440px;
-  margin: 0 auto;
-}
-
-@media (min-width: 1440px) {
-  .navbar {
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto;
-    width: 100%;
-  }
 }
 
 .nav-center {
@@ -158,7 +147,6 @@ body {
   color: var(--white);
 }
 
-/* Page transitions */
 .page-enter-active,
 .page-leave-active {
   transition:
