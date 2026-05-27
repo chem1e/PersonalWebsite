@@ -1,8 +1,8 @@
 <template>
-  <div class="works-page">
-    <div class="page-header">
-      <h1 class="page-title reveal">WORKS</h1>
-      <div class="filters reveal">
+  <div class="works">
+    <div class="works-header">
+      <h1 class="page-title">WORKS</h1>
+      <div class="filters">
         <button
           v-for="cat in categories"
           :key="cat"
@@ -16,30 +16,30 @@
 
     <div class="works-grid">
       <div
-        v-for="(work, i) in filteredWorks"
+        v-for="work in filteredWorks"
         :key="work.id"
-        class="work-item reveal"
-        :style="{ transitionDelay: (i % 3) * 80 + 'ms' }"
+        class="work-item"
+        @click="openProject(work)"
       >
-        <div class="work-img-wrap">
-          <img :src="work.img" :alt="work.title" class="work-img" />
+        <div class="work-image">
+          <img :src="work.img" :alt="work.title" />
           <div class="work-overlay">
-            <span class="overlay-text">VIEW PROJECT →</span>
+            <span>VIEW PROJECT →</span>
           </div>
         </div>
-        <div class="work-meta">
-          <div class="meta-top">
+        <div class="work-details">
+          <div class="work-meta">
             <span class="work-category">{{ work.category }}</span>
             <span class="work-year">{{ work.year }}</span>
           </div>
           <h3 class="work-title">{{ work.title }}</h3>
-          <p class="work-desc">{{ work.desc }}</p>
+          <p class="work-description">{{ work.desc }}</p>
         </div>
       </div>
     </div>
 
-    <div class="edit-hint reveal">
-      <span>✦ Edit <code>works</code> array in Works.vue to add your own projects</span>
+    <div class="edit-note">
+      ✦ Edit <code>works</code> array in Works.vue to add your own projects
     </div>
   </div>
 </template>
@@ -117,35 +117,21 @@ export default {
       return this.works.filter((w) => w.category === this.activeFilter)
     },
   },
-  mounted() {
-    this.setupReveal()
-  },
-  updated() {
-    this.$nextTick(() => this.setupReveal())
-  },
   methods: {
-    setupReveal() {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) entry.target.classList.add('visible')
-          })
-        },
-        { threshold: 0.1 },
-      )
-      document.querySelectorAll('.reveal:not(.visible)').forEach((el) => observer.observe(el))
+    openProject(work) {
+      // Placeholder – you can later add modal or project page
+      console.log('Open project:', work.title)
     },
   },
 }
 </script>
 
 <style scoped>
-.works-page {
+.works {
   width: 100%;
-  padding: 0 0 40px 0;
 }
 
-.page-header {
+.works-header {
   padding: 60px 40px 40px 40px;
   border-bottom: 1px solid var(--light-gray);
 }
@@ -157,8 +143,6 @@ export default {
   letter-spacing: -0.02em;
   line-height: 1;
   margin-bottom: 40px;
-  white-space: normal;
-  word-break: break-word;
 }
 
 .filters {
@@ -217,21 +201,20 @@ export default {
   border-right: none;
 }
 
-.work-img-wrap {
+.work-image {
   position: relative;
   overflow: hidden;
   aspect-ratio: 4/3;
 }
 
-.work-img {
+.work-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
   transition: transform 0.6s ease;
 }
 
-.work-item:hover .work-img {
+.work-item:hover .work-image img {
   transform: scale(1.06);
 }
 
@@ -250,7 +233,7 @@ export default {
   opacity: 1;
 }
 
-.overlay-text {
+.work-overlay span {
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 700;
@@ -258,11 +241,11 @@ export default {
   color: #fff;
 }
 
-.work-meta {
+.work-details {
   padding: 24px;
 }
 
-.meta-top {
+.work-meta {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -290,14 +273,14 @@ export default {
   margin-bottom: 8px;
 }
 
-.work-desc {
+.work-description {
   font-size: 13px;
   font-weight: 300;
   color: #555;
   line-height: 1.55;
 }
 
-.edit-hint {
+.edit-note {
   text-align: center;
   padding: 40px;
   font-size: 12px;
@@ -305,14 +288,15 @@ export default {
   border-top: 1px solid var(--light-gray);
 }
 
-.edit-hint code {
+.edit-note code {
   background: var(--light-gray);
   padding: 2px 6px;
   font-size: 11px;
 }
 
+/* Mobile */
 @media (max-width: 768px) {
-  .page-header {
+  .works-header {
     padding: 40px 20px;
   }
   .works-grid {
@@ -321,10 +305,10 @@ export default {
   .work-item {
     border-right: none;
   }
-  .work-meta {
+  .work-details {
     padding: 16px;
   }
-  .edit-hint {
+  .edit-note {
     padding: 30px 20px;
   }
 }

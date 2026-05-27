@@ -1,11 +1,12 @@
 <template>
   <div class="home">
+    <!-- Hero -->
     <section class="hero">
       <div class="hero-text">
         <h1 class="hero-name">RYAN<br />CHEN</h1>
         <p class="hero-sub">DESIGNER / CREATIVE TECHNOLOGIST</p>
       </div>
-      <div class="hero-photo reveal">
+      <div class="hero-photo">
         <img
           src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
           alt="Ryan Chen"
@@ -15,26 +16,24 @@
       </div>
     </section>
 
-    <section class="about-section">
-      <div class="about-line reveal"></div>
+    <!-- About -->
+    <section class="about">
+      <div class="about-line"></div>
       <div class="about-content">
-        <div class="about-left reveal">
-          <span class="about-tag">ABOUT</span>
-        </div>
-        <div class="about-right reveal">
-          <p class="about-text">
+        <div class="about-tag">ABOUT</div>
+        <div class="about-text">
+          <p>
             I'm a designer and creative technologist passionate about crafting meaningful digital
             experiences. I blend design thinking with technical execution to build products that
             resonate with people.
           </p>
-          <router-link to="/works" class="cta-link">
-            VIEW MY WORKS <span class="arrow">→</span>
-          </router-link>
+          <router-link to="/works" class="cta-link">VIEW MY WORKS →</router-link>
         </div>
       </div>
     </section>
 
-    <div class="ticker-wrap reveal">
+    <!-- Ticker (full width) -->
+    <div class="ticker-wrapper">
       <div class="ticker">
         <span v-for="n in 6" :key="n">
           BRAND STRATEGY &nbsp;&nbsp;·&nbsp;&nbsp; CREATIVE TECH &nbsp;&nbsp;·&nbsp;&nbsp;
@@ -44,7 +43,8 @@
       </div>
     </div>
 
-    <section class="featured reveal">
+    <!-- Featured Works -->
+    <section class="featured">
       <div class="featured-header">
         <span class="section-label">SELECTED WORKS</span>
         <router-link to="/works" class="see-all">SEE ALL →</router-link>
@@ -56,7 +56,7 @@
           class="featured-card"
           @click="$router.push('/works')"
         >
-          <div class="card-img-wrap">
+          <div class="card-img">
             <img :src="work.img" :alt="work.title" />
           </div>
           <div class="card-info">
@@ -103,9 +103,7 @@ export default {
         (entries) => {
           entries.forEach((entry, i) => {
             if (entry.isIntersecting) {
-              setTimeout(() => {
-                entry.target.classList.add('visible')
-              }, i * 80)
+              setTimeout(() => entry.target.classList.add('visible'), i * 80)
             }
           })
         },
@@ -120,10 +118,9 @@ export default {
 <style scoped>
 .home {
   width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
 }
 
+/* Hero Section */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -135,7 +132,7 @@ export default {
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(70px, 10vw, 160px);
+  font-size: clamp(70px, 12vw, 180px);
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: -0.03em;
@@ -160,7 +157,7 @@ export default {
 .hero-img {
   width: 100%;
   height: auto;
-  aspect-ratio: 4/5;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: center 20%;
   display: block;
@@ -181,7 +178,8 @@ export default {
   letter-spacing: 0.12em;
 }
 
-.about-section {
+/* About */
+.about {
   padding: 80px 40px;
   border-top: 1px solid var(--light-gray);
 }
@@ -199,11 +197,8 @@ export default {
   align-items: flex-start;
 }
 
-.about-left {
-  flex: 0 0 200px;
-}
-
 .about-tag {
+  flex: 0 0 200px;
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 700;
@@ -211,15 +206,15 @@ export default {
   color: var(--gray);
 }
 
-.about-right {
-  flex: 1;
-}
-
 .about-text {
+  flex: 1;
   font-size: 22px;
   font-weight: 300;
   line-height: 1.6;
   max-width: 600px;
+}
+
+.about-text p {
   margin-bottom: 40px;
 }
 
@@ -241,41 +236,38 @@ export default {
   gap: 16px;
 }
 
-.ticker-wrap {
+/* Ticker – full width */
+.ticker-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+}
+.ticker {
   overflow: hidden;
   border-top: 1px solid var(--light-gray);
   border-bottom: 1px solid var(--light-gray);
   padding: 20px 0;
   background: var(--black);
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
-
-.ticker {
-  display: flex;
-  width: max-content;
-  animation: ticker 30s linear infinite;
+  white-space: nowrap;
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
   color: var(--white);
-  white-space: nowrap;
 }
-
-@keyframes ticker {
-  from {
+.ticker span {
+  display: inline-block;
+  animation: tickerScroll 30s linear infinite;
+}
+@keyframes tickerScroll {
+  0% {
     transform: translateX(0);
   }
-  to {
+  100% {
     transform: translateX(-50%);
   }
 }
 
+/* Featured Works */
 .featured {
   padding: 80px 40px;
 }
@@ -319,20 +311,19 @@ export default {
   overflow: hidden;
 }
 
-.card-img-wrap {
+.card-img {
   overflow: hidden;
   aspect-ratio: 3/2;
 }
 
-.card-img-wrap img {
+.card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
-  display: block;
 }
 
-.featured-card:hover .card-img-wrap img {
+.featured-card:hover .card-img img {
   transform: scale(1.05);
 }
 
@@ -368,6 +359,7 @@ export default {
   padding: 3px 8px;
 }
 
+/* Mobile */
 @media (max-width: 768px) {
   .hero {
     grid-template-columns: 1fr;
@@ -381,7 +373,7 @@ export default {
     flex-direction: column;
     gap: 30px;
   }
-  .about-left {
+  .about-tag {
     flex: auto;
   }
   .featured-grid {
@@ -391,7 +383,7 @@ export default {
   .featured {
     padding: 60px 20px;
   }
-  .about-section {
+  .about {
     padding: 60px 20px;
   }
 }

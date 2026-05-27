@@ -1,67 +1,61 @@
 <template>
-  <div class="contact-page">
-    <div class="contact-layout">
-      <div class="contact-left">
-        <h1 class="page-title reveal">CONTACT</h1>
-        <p class="contact-tagline reveal">
+  <div class="contact">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h1 class="contact-title">CONTACT</h1>
+        <p class="tagline">
           Let's create something meaningful<br />
           together. Always passionate about<br />
           all things design and community!
         </p>
-        <div class="contact-sections">
-          <div class="contact-group reveal">
-            <span class="group-label">EMAIL</span>
-            <a :href="'mailto:' + info.email" class="contact-link">
-              {{ info.email }}
-            </a>
+
+        <div class="contact-details">
+          <div class="detail-group">
+            <span class="detail-label">EMAIL</span>
+            <a :href="'mailto:' + info.email" class="detail-link">{{ info.email }}</a>
           </div>
-          <div class="contact-group reveal">
-            <span class="group-label">SOCIALS</span>
-            <div class="socials-list">
+          <div class="detail-group">
+            <span class="detail-label">SOCIALS</span>
+            <div class="social-links">
               <a
-                v-for="social in info.socials"
-                :key="social.name"
-                :href="social.url"
+                v-for="s in info.socials"
+                :key="s.name"
+                :href="s.url"
                 target="_blank"
-                rel="noopener"
-                class="contact-link"
+                class="detail-link"
+                >{{ s.name }}</a
               >
-                {{ social.name }}
-              </a>
             </div>
           </div>
-          <div class="contact-group reveal" v-if="info.links.length">
-            <span class="group-label">LINKS</span>
-            <div class="socials-list">
+          <div class="detail-group" v-if="info.links.length">
+            <span class="detail-label">LINKS</span>
+            <div class="social-links">
               <a
-                v-for="link in info.links"
-                :key="link.name"
-                :href="link.url"
+                v-for="l in info.links"
+                :key="l.name"
+                :href="l.url"
                 target="_blank"
-                rel="noopener"
-                class="contact-link"
+                class="detail-link"
+                >{{ l.name }}</a
               >
-                {{ link.name }}
-              </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="contact-right reveal">
-        <div class="contact-photo-wrap">
-          <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80"
-            alt="Ryan Chen"
-            class="contact-photo"
-          />
-          <div class="photo-badge">SAY HELLO :)</div>
-        </div>
+
+      <div class="contact-photo">
+        <img
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80"
+          alt="Ryan Chen"
+        />
+        <div class="photo-badge">SAY HELLO :)</div>
       </div>
     </div>
-    <div class="contact-footer reveal">
+
+    <footer class="contact-footer">
       <span>© {{ new Date().getFullYear() }} RYAN CHEN — ALL RIGHTS RESERVED</span>
       <span>BASED IN NEW HAVEN & NYC</span>
-    </div>
+    </footer>
   </div>
 </template>
 
@@ -84,51 +78,39 @@ export default {
       },
     }
   },
-  mounted() {
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('visible')
-        }),
-      { threshold: 0.1 },
-    )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-  },
 }
 </script>
 
 <style scoped>
-.contact-page {
+.contact {
   width: 100%;
-  min-height: calc(100vh - 57px);
   display: flex;
   flex-direction: column;
+  min-height: calc(100vh - 57px);
 }
 
-.contact-layout {
+.contact-grid {
   flex: 1;
   display: grid;
   grid-template-columns: 1fr 45%;
+  gap: 0;
 }
 
-.contact-left {
+.contact-info {
   padding: 70px 60px 60px 40px;
-  display: flex;
-  flex-direction: column;
   border-right: 1px solid var(--light-gray);
 }
 
-.page-title {
+.contact-title {
   font-family: var(--font-display);
   font-size: clamp(50px, 8vw, 100px);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin-bottom: 50px;
-  word-break: break-word;
 }
 
-.contact-tagline {
+.tagline {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.7;
@@ -137,19 +119,19 @@ export default {
   max-width: 360px;
 }
 
-.contact-sections {
+.contact-details {
   display: flex;
   flex-direction: column;
   gap: 44px;
 }
 
-.contact-group {
+.detail-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.group-label {
+.detail-label {
   font-family: var(--font-display);
   font-size: 10px;
   font-weight: 700;
@@ -157,7 +139,7 @@ export default {
   color: var(--gray);
 }
 
-.contact-link {
+.detail-link {
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 600;
@@ -166,10 +148,9 @@ export default {
   display: inline-block;
   position: relative;
   width: fit-content;
-  transition: color 0.2s;
 }
 
-.contact-link::after {
+.detail-link::after {
   content: '';
   position: absolute;
   bottom: -2px;
@@ -180,28 +161,22 @@ export default {
   transition: width 0.3s ease;
 }
 
-.contact-link:hover::after {
+.detail-link:hover::after {
   width: 100%;
 }
 
-.socials-list {
+.social-links {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.contact-right {
+.contact-photo {
   position: relative;
   overflow: hidden;
 }
 
-.contact-photo-wrap {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.contact-photo {
+.contact-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -209,7 +184,6 @@ export default {
   display: block;
   filter: grayscale(20%);
   min-height: 500px;
-  max-height: 80vh;
 }
 
 .photo-badge {
@@ -239,17 +213,17 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .contact-layout {
+  .contact-grid {
     grid-template-columns: 1fr;
   }
-  .contact-left {
+  .contact-info {
     padding: 50px 20px;
     border-right: none;
   }
-  .contact-right {
+  .contact-photo {
     min-height: 400px;
   }
-  .contact-photo {
+  .contact-photo img {
     min-height: 400px;
   }
   .contact-footer {
@@ -258,7 +232,7 @@ export default {
     text-align: center;
     padding: 20px;
   }
-  .page-title {
+  .contact-title {
     font-size: clamp(40px, 12vw, 70px);
   }
 }

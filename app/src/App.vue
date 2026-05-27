@@ -10,15 +10,13 @@
       <div class="nav-right">NYC: {{ currentTime }}</div>
     </nav>
 
-    <main class="main-container">
+    <main class="page-container">
       <router-view v-slot="{ Component }">
         <transition name="page" mode="out-in">
           <component :is="Component" />
         </transition>
       </router-view>
     </main>
-
-    <div class="say-hello" @click="$router.push('/contact')">SAY HELLO :)</div>
   </div>
 </template>
 
@@ -47,39 +45,32 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* ---------- Global Reset & Fonts ---------- */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
 :root {
   --black: #0a0a0a;
   --white: #f5f4f0;
   --gray: #888;
   --light-gray: #e8e7e3;
-  --accent: #0a0a0a;
   --font-display: 'Syne', sans-serif;
   --font-body: 'DM Sans', sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
   background: var(--white);
   color: var(--black);
   font-family: var(--font-body);
-  margin: 0;
-  padding: 0;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
+/* Centered App container */
 #app {
   max-width: 1440px;
   margin: 0 auto;
@@ -88,15 +79,17 @@ body {
   position: relative;
 }
 
+/* Navbar – fixed, centered, matches #app width */
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1440px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   padding: 18px 40px;
   background: var(--white);
   border-bottom: 1px solid var(--light-gray);
@@ -104,7 +97,7 @@ body {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
-  margin: 0 auto;
+  z-index: 100;
 }
 
 .nav-center {
@@ -123,29 +116,13 @@ body {
   color: var(--black);
 }
 
-.say-hello {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: var(--white);
-  border: 1.5px solid var(--black);
-  padding: 10px 18px;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  z-index: 99;
-  transition:
-    background 0.2s,
-    color 0.2s;
+/* Page container – offsets fixed navbar */
+.page-container {
+  padding-top: 57px;
+  width: 100%;
 }
 
-.say-hello:hover {
-  background: var(--black);
-  color: var(--white);
-}
-
+/* Page transitions */
 .page-enter-active,
 .page-leave-active {
   transition:
@@ -161,6 +138,7 @@ body {
   transform: translateY(-16px);
 }
 
+/* Scroll reveal */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
@@ -171,10 +149,5 @@ body {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.main-container {
-  padding-top: 57px;
-  width: 100%;
 }
 </style>
