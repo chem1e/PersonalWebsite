@@ -1,46 +1,49 @@
 <template>
-  <div class="works">
-    <div class="works-header">
-      <h1 class="page-title">WORKS</h1>
-      <div class="filters">
-        <button
-          v-for="cat in categories"
-          :key="cat"
-          :class="['filter-btn', { active: activeFilter === cat }]"
-          @click="activeFilter = cat"
-        >
-          {{ cat }}
-        </button>
+  <div class="wk">
+    <!-- HEADER -->
+    <div class="wk-head">
+      <div class="wk-head-top">
+        <span class="wk-label">002 / WORKS</span>
+        <span class="wk-label">{{ filteredWorks.length }} PROJECTS</span>
       </div>
+      <h1 class="wk-title">WORKS</h1>
     </div>
 
-    <div class="works-grid">
-      <div
-        v-for="work in filteredWorks"
-        :key="work.id"
-        class="work-item"
-        @click="openProject(work)"
+    <!-- FILTERS -->
+    <div class="wk-filters">
+      <button
+        v-for="cat in categories"
+        :key="cat"
+        :class="['wk-btn', { 'wk-btn-active': activeFilter === cat }]"
+        @click="activeFilter = cat"
       >
-        <div class="work-image">
-          <img :src="work.img" :alt="work.title" />
-          <div class="work-overlay">
-            <span>VIEW PROJECT →</span>
-          </div>
-        </div>
-        <div class="work-details">
-          <div class="work-meta">
-            <span class="work-category">{{ work.category }}</span>
-            <span class="work-year">{{ work.year }}</span>
-          </div>
-          <h3 class="work-title">{{ work.title }}</h3>
-          <p class="work-description">{{ work.desc }}</p>
-        </div>
-      </div>
+        {{ cat }}
+      </button>
     </div>
 
-    <div class="edit-note">
-      ✦ Edit <code>works</code> array in Works.vue to add your own projects
-    </div>
+    <!-- GRID -->
+    <ul class="wk-grid">
+      <li
+        v-for="(w, i) in filteredWorks"
+        :key="w.id"
+        class="wk-card rc-reveal"
+        @click="openProject(w)"
+      >
+        <div class="wk-card-img">
+          <img :src="w.img" :alt="w.title" />
+          <div class="wk-card-over"><span class="wk-label">VIEW PROJECT →</span></div>
+        </div>
+        <div class="wk-card-body">
+          <div class="wk-card-meta">
+            <span class="wk-label wk-muted">{{ w.category }}</span>
+            <span class="wk-label wk-muted">{{ w.year }}</span>
+          </div>
+          <h3 class="wk-card-name">{{ w.title }}</h3>
+          <p class="wk-card-desc">{{ w.desc }}</p>
+        </div>
+        <span class="wk-card-num wk-label wk-muted">{{ String(i + 1).padStart(2, '0') }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -113,203 +116,237 @@ export default {
   },
   computed: {
     filteredWorks() {
-      if (this.activeFilter === 'ALL') return this.works
-      return this.works.filter((w) => w.category === this.activeFilter)
+      return this.activeFilter === 'ALL'
+        ? this.works
+        : this.works.filter((w) => w.category === this.activeFilter)
     },
   },
+  mounted() {
+    this.observe()
+  },
+  updated() {
+    this.observe()
+  },
   methods: {
-    openProject(work) {
-      // Placeholder – you can later add modal or project page
-      console.log('Open project:', work.title)
+    observe() {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) setTimeout(() => e.target.classList.add('rc-visible'), i * 80)
+          })
+        },
+        { threshold: 0.06 },
+      )
+      this.$el.querySelectorAll('.rc-reveal:not(.rc-visible)').forEach((el) => io.observe(el))
+    },
+    openProject(w) {
+      console.log('open:', w.title)
     },
   },
 }
 </script>
 
 <style scoped>
-.works {
+.wk {
   width: 100%;
 }
 
-.works-header {
-  padding: 60px 40px 40px 40px;
-  border-bottom: 1px solid var(--light-gray);
+/* ── Shared atoms ─────────────────────────────────────────── */
+.wk-label {
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.wk-muted {
+  color: var(--rc-muted);
 }
 
-.page-title {
-  font-family: var(--font-display);
-  font-size: clamp(60px, 10vw, 140px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  margin-bottom: 40px;
+/* ── HEADER ───────────────────────────────────────────────── */
+.wk-head {
+  padding-top: clamp(40px, 5vw, 68px);
+  padding-left: var(--rc-pad);
+  padding-right: var(--rc-pad);
+  padding-bottom: 0;
+  border-bottom: 1px solid var(--rc-rule);
 }
 
-.filters {
+.wk-head-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.wk-title {
+  font-family: var(--rc-display);
+  font-size: clamp(72px, 11vw, 152px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: var(--rc-ink);
+  padding-bottom: clamp(24px, 3vw, 40px);
+}
+
+/* ── FILTERS ──────────────────────────────────────────────── */
+.wk-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  border-bottom: 1px solid var(--rc-rule);
+  padding-left: var(--rc-pad);
 }
 
-.filter-btn {
+.wk-btn {
+  appearance: none;
   background: none;
   border: none;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 600;
+  border-right: 1px solid var(--rc-rule);
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  font-weight: 500;
   letter-spacing: 0.12em;
-  color: var(--gray);
+  color: var(--rc-muted);
   cursor: pointer;
-  padding: 0;
-  transition: color 0.2s;
-  position: relative;
+  padding: 15px 22px;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
 }
 
-.filter-btn.active {
-  color: var(--black);
+.wk-btn:hover {
+  color: var(--rc-ink);
 }
 
-.filter-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background: var(--black);
+.wk-btn-active {
+  color: var(--rc-paper);
+  background-color: var(--rc-ink);
 }
 
-.filter-btn:hover {
-  color: var(--black);
-}
-
-.works-grid {
+/* ── GRID ─────────────────────────────────────────────────── */
+.wk-grid {
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--light-gray);
+  border-left: 1px solid var(--rc-rule);
 }
 
-.work-item {
-  border-right: 1px solid var(--light-gray);
-  border-bottom: 1px solid var(--light-gray);
+.wk-card {
+  position: relative;
+  border-right: 1px solid var(--rc-rule);
+  border-bottom: 1px solid var(--rc-rule);
   cursor: pointer;
-  overflow: hidden;
+  transition: background-color 0.18s ease;
 }
 
-.work-item:nth-child(3n) {
+.wk-card:hover {
+  background-color: var(--rc-dim);
+}
+
+/* Ensure 3-col border-right resets on last column */
+.wk-card:nth-child(3n) {
   border-right: none;
 }
 
-.work-image {
+.wk-card-img {
   position: relative;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  aspect-ratio: 4/3;
 }
 
-.work-image img {
+.wk-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  filter: saturate(0.88);
+  transition: transform 0.55s ease;
 }
 
-.work-item:hover .work-image img {
+.wk-card:hover .wk-card-img img {
   transform: scale(1.06);
 }
 
-.work-overlay {
+.wk-card-over {
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 10, 0.65);
+  background-color: rgba(13, 12, 10, 0.68);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.28s ease;
 }
 
-.work-item:hover .work-overlay {
+.wk-card:hover .wk-card-over {
   opacity: 1;
 }
 
-.work-overlay span {
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: #fff;
+.wk-card-over .wk-label {
+  color: var(--rc-paper);
 }
 
-.work-details {
-  padding: 24px;
+.wk-card-body {
+  padding: 20px 22px 26px 22px;
 }
 
-.work-meta {
+.wk-card-meta {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
 
-.work-category {
-  font-family: var(--font-display);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--gray);
+.wk-card-name {
+  font-family: var(--rc-display);
+  font-size: clamp(18px, 1.6vw, 24px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  color: var(--rc-ink);
+  margin-bottom: 10px;
 }
 
-.work-year {
-  font-family: var(--font-display);
-  font-size: 9px;
-  color: var(--gray);
-  letter-spacing: 0.1em;
-}
-
-.work-title {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.work-description {
+.wk-card-desc {
   font-size: 13px;
   font-weight: 300;
-  color: #555;
-  line-height: 1.55;
+  line-height: 1.6;
+  color: var(--rc-muted);
 }
 
-.edit-note {
-  text-align: center;
-  padding: 40px;
-  font-size: 12px;
-  color: var(--gray);
-  border-top: 1px solid var(--light-gray);
+.wk-card-num {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-color: var(--rc-paper);
+  padding: 3px 8px;
 }
 
-.edit-note code {
-  background: var(--light-gray);
-  padding: 2px 6px;
-  font-size: 11px;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .works-header {
-    padding: 40px 20px;
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .wk-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .works-grid {
-    grid-template-columns: 1fr;
+  .wk-card:nth-child(3n) {
+    border-right: 1px solid var(--rc-rule);
   }
-  .work-item {
+  .wk-card:nth-child(2n) {
     border-right: none;
   }
-  .work-details {
-    padding: 16px;
+}
+
+@media (max-width: 540px) {
+  .wk-grid {
+    grid-template-columns: 1fr;
+    border-left: none;
   }
-  .edit-note {
-    padding: 30px 20px;
+  .wk-card,
+  .wk-card:nth-child(2n),
+  .wk-card:nth-child(3n) {
+    border-right: none;
+  }
+  .wk-filters {
+    padding-left: 0;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .wk-btn {
+    flex-shrink: 0;
   }
 }
 </style>

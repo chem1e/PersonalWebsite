@@ -1,60 +1,66 @@
 <template>
-  <div class="contact">
-    <div class="contact-grid">
-      <div class="contact-info">
-        <h1 class="contact-title">CONTACT</h1>
-        <p class="tagline">
-          Let's create something meaningful<br />
-          together. Always passionate about<br />
-          all things design and community!
+  <div class="ct">
+    <div class="ct-layout">
+      <!-- LEFT -->
+      <div class="ct-left">
+        <p class="ct-label">003 / CONTACT</p>
+
+        <h1 class="ct-title">LET'S<br />TALK</h1>
+
+        <p class="ct-tagline">
+          Let's create something meaningful together. Always passionate about design and community.
         </p>
 
-        <div class="contact-details">
-          <div class="detail-group">
-            <span class="detail-label">EMAIL</span>
-            <a :href="'mailto:' + info.email" class="detail-link">{{ info.email }}</a>
+        <div class="ct-rows">
+          <div class="ct-row">
+            <span class="ct-row-label ct-label">EMAIL</span>
+            <a :href="'mailto:' + info.email" class="ct-link">{{ info.email }}</a>
           </div>
-          <div class="detail-group">
-            <span class="detail-label">SOCIALS</span>
-            <div class="social-links">
+
+          <div class="ct-divider"></div>
+
+          <div class="ct-row">
+            <span class="ct-row-label ct-label">SOCIALS</span>
+            <div class="ct-link-group">
               <a
                 v-for="s in info.socials"
                 :key="s.name"
                 :href="s.url"
                 target="_blank"
-                class="detail-link"
-                >{{ s.name }}</a
+                class="ct-link"
+                >{{ s.name }} →</a
               >
             </div>
           </div>
-          <div class="detail-group" v-if="info.links.length">
-            <span class="detail-label">LINKS</span>
-            <div class="social-links">
-              <a
-                v-for="l in info.links"
-                :key="l.name"
-                :href="l.url"
-                target="_blank"
-                class="detail-link"
-                >{{ l.name }}</a
+
+          <div class="ct-divider"></div>
+
+          <div class="ct-row" v-if="info.links.length">
+            <span class="ct-row-label ct-label">LINKS</span>
+            <div class="ct-link-group">
+              <a v-for="l in info.links" :key="l.name" :href="l.url" target="_blank" class="ct-link"
+                >{{ l.name }} →</a
               >
             </div>
           </div>
         </div>
       </div>
 
-      <div class="contact-photo">
+      <!-- RIGHT -->
+      <div class="ct-right">
         <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80"
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=85"
           alt="Ryan Chen"
+          class="ct-photo"
         />
-        <div class="photo-badge">SAY HELLO :)</div>
+        <div class="ct-stamp">SAY HELLO :)</div>
       </div>
     </div>
 
-    <footer class="contact-footer">
-      <span>© {{ new Date().getFullYear() }} RYAN CHEN — ALL RIGHTS RESERVED</span>
-      <span>BASED IN NEW HAVEN & NYC</span>
+    <!-- FOOTER -->
+    <footer class="ct-footer">
+      <span class="ct-label ct-muted">© {{ year }} RYAN CHEN — ALL RIGHTS RESERVED</span>
+      <span class="ct-label ct-muted">BASED IN NEW HAVEN & NYC</span>
     </footer>
   </div>
 </template>
@@ -64,6 +70,7 @@ export default {
   name: 'Contact',
   data() {
     return {
+      year: new Date().getFullYear(),
       info: {
         email: 'ryan.chen@yale.edu',
         socials: [
@@ -82,158 +89,187 @@ export default {
 </script>
 
 <style scoped>
-.contact {
+/* ── Root ─────────────────────────────────────────────────── */
+.ct {
   width: 100%;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 57px);
+  min-height: calc(100vh - var(--rc-nav));
 }
 
-.contact-grid {
+/* ── Shared atoms ─────────────────────────────────────────── */
+.ct-label {
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.ct-muted {
+  color: var(--rc-muted);
+}
+
+/* ── Split layout ─────────────────────────────────────────── */
+.ct-layout {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 45%;
-  gap: 0;
+  grid-template-columns: 1fr 42%;
 }
 
-.contact-info {
-  padding: 70px 60px 60px 40px;
-  border-right: 1px solid var(--light-gray);
+/* ── LEFT ─────────────────────────────────────────────────── */
+.ct-left {
+  padding-top: clamp(44px, 6vw, 80px);
+  padding-bottom: clamp(44px, 6vw, 64px);
+  padding-left: var(--rc-pad);
+  padding-right: var(--rc-pad);
+  border-right: 1px solid var(--rc-rule);
+  display: flex;
+  flex-direction: column;
 }
 
-.contact-title {
-  font-family: var(--font-display);
-  font-size: clamp(50px, 8vw, 100px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 50px;
+.ct-label {
+  color: var(--rc-muted);
+  margin-bottom: 28px;
 }
 
-.tagline {
-  font-size: 16px;
+.ct-title {
+  font-family: var(--rc-display);
+  font-size: clamp(72px, 10vw, 136px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: var(--rc-ink);
+  margin-bottom: 28px;
+}
+
+.ct-tagline {
+  font-size: 15px;
   font-weight: 300;
   line-height: 1.7;
-  color: var(--black);
-  margin-bottom: 70px;
-  max-width: 360px;
+  color: var(--rc-muted);
+  max-width: 340px;
+  margin-bottom: 52px;
 }
 
-.contact-details {
+/* ── Detail rows ──────────────────────────────────────────── */
+.ct-rows {
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 44px;
 }
 
-.detail-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.ct-divider {
+  height: 1px;
+  background-color: var(--rc-rule);
 }
 
-.detail-label {
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: var(--gray);
+.ct-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: start;
+  gap: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.detail-link {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--black);
-  text-decoration: none;
+.ct-row-label {
+  padding-top: 4px;
+  color: var(--rc-muted);
+}
+
+.ct-link {
   display: inline-block;
+  font-family: var(--rc-display);
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--rc-ink);
   position: relative;
-  width: fit-content;
+  transition: color 0.18s ease;
 }
 
-.detail-link::after {
+.ct-link::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -1px;
   left: 0;
   width: 0;
-  height: 1.5px;
-  background: var(--black);
-  transition: width 0.3s ease;
+  height: 1px;
+  background-color: var(--rc-red);
+  transition: width 0.28s ease;
 }
 
-.detail-link:hover::after {
+.ct-link:hover {
+  color: var(--rc-red);
+}
+
+.ct-link:hover::after {
   width: 100%;
 }
 
-.social-links {
+.ct-link-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
 }
 
-.contact-photo {
+/* ── RIGHT (photo) ────────────────────────────────────────── */
+.ct-right {
   position: relative;
   overflow: hidden;
 }
 
-.contact-photo img {
+.ct-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
-  display: block;
-  filter: grayscale(20%);
-  min-height: 500px;
+  object-position: center 15%;
+  min-height: 480px;
+  filter: saturate(0.8);
 }
 
-.photo-badge {
+.ct-stamp {
   position: absolute;
-  bottom: 28px;
-  right: 28px;
-  background: var(--white);
-  border: 1.5px solid var(--black);
+  bottom: 26px;
+  right: 26px;
+  background-color: var(--rc-paper);
+  border: 1px solid var(--rc-ink);
   padding: 10px 18px;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  transform: rotate(-2deg);
 }
 
-.contact-footer {
+/* ── FOOTER ───────────────────────────────────────────────── */
+.ct-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
-  border-top: 1px solid var(--light-gray);
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--gray);
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: var(--rc-pad);
+  padding-right: var(--rc-pad);
+  border-top: 1px solid var(--rc-rule);
 }
 
+/* ── MOBILE ───────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .contact-grid {
+  .ct-layout {
     grid-template-columns: 1fr;
   }
-  .contact-info {
-    padding: 50px 20px;
+  .ct-left {
     border-right: none;
   }
-  .contact-photo {
-    min-height: 400px;
+  .ct-right {
+    display: none;
   }
-  .contact-photo img {
-    min-height: 400px;
+  .ct-row {
+    grid-template-columns: 80px 1fr;
   }
-  .contact-footer {
+  .ct-footer {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     text-align: center;
-    padding: 20px;
-  }
-  .contact-title {
-    font-size: clamp(40px, 12vw, 70px);
   }
 }
 </style>

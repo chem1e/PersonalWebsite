@@ -1,22 +1,21 @@
 <template>
-  <div id="app">
-    <nav class="navbar">
-      <div class="nav-left">BY RYAN CHEN ©</div>
-      <div class="nav-center">
-        <router-link to="/">HOME</router-link>
+  <div id="rc-app">
+    <header id="rc-nav">
+      <span class="rc-nav-brand">BY RYAN CHEN ©</span>
+      <nav class="rc-nav-links">
+        <router-link to="/" exact>HOME</router-link>
         <router-link to="/works">WORKS</router-link>
         <router-link to="/contact">CONTACT</router-link>
-      </div>
-      <div class="nav-right">NYC: {{ currentTime }}</div>
-    </nav>
-
-    <main class="page-container">
+      </nav>
+      <span class="rc-nav-clock">NYC — {{ time }}</span>
+    </header>
+    <div id="rc-main">
       <router-view v-slot="{ Component }">
-        <transition name="page" mode="out-in">
+        <transition name="rc-fade" mode="out-in">
           <component :is="Component" />
         </transition>
       </router-view>
-    </main>
+    </div>
   </div>
 </template>
 
@@ -24,16 +23,15 @@
 export default {
   name: 'App',
   data() {
-    return { currentTime: '' }
+    return { time: '' }
   },
   mounted() {
-    this.updateTime()
-    setInterval(this.updateTime, 1000)
+    this.tick()
+    setInterval(this.tick, 1000)
   },
   methods: {
-    updateTime() {
-      const now = new Date()
-      this.currentTime = now.toLocaleTimeString('en-US', {
+    tick() {
+      this.time = new Date().toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
@@ -45,108 +43,162 @@ export default {
 </script>
 
 <style>
-/* ---------- Global Reset & Fonts ---------- */
-* {
+/* ============================================================
+   RYAN CHEN — GLOBAL CSS
+   All selectors are prefixed rc- to avoid any conflicts.
+   @import MUST be first.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Epilogue:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+
+/* ── Reset ────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
-
+/* ── Tokens ───────────────────────────────────────────────── */
 :root {
-  --black: #0a0a0a;
-  --white: #f5f4f0;
-  --gray: #888;
-  --light-gray: #e8e7e3;
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --rc-ink: #0d0c0a;
+  --rc-paper: #f1efe9;
+  --rc-dim: #e5e2d9;
+  --rc-rule: #ccc9bf;
+  --rc-muted: #928e88;
+  --rc-red: #c63f27;
+
+  --rc-display: 'Bebas Neue', sans-serif;
+  --rc-body: 'Epilogue', sans-serif;
+  --rc-mono: 'DM Mono', monospace;
+
+  --rc-nav: 56px;
+  --rc-pad: clamp(20px, 4vw, 56px);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--white);
-  color: var(--black);
-  font-family: var(--font-body);
+  background-color: var(--rc-paper);
+  color: var(--rc-ink);
+  font-family: var(--rc-body);
+  font-weight: 300;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* Centered App container */
-#app {
-  max-width: 1440px;
-  margin: 0 auto;
-  width: 100%;
-  background: var(--white);
-  position: relative;
+img {
+  display: block;
+  max-width: 100%;
 }
 
-/* Navbar – fixed, centered, matches #app width */
-.navbar {
+a {
+  text-decoration: none;
+}
+
+/* ── App wrapper ──────────────────────────────────────────── */
+#rc-app {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--rc-paper);
+}
+
+/* ── Navbar ───────────────────────────────────────────────── */
+/*
+  Uses left:0/right:0 + margin:auto so it never causes
+  horizontal scroll the way left:50%/translateX does.
+*/
+#rc-nav {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
+  left: 0;
+  right: 0;
   max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  height: var(--rc-nav);
+  background-color: var(--rc-paper);
+  border-bottom: 1px solid var(--rc-rule);
+  z-index: 999;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 18px 40px;
-  background: var(--white);
-  border-bottom: 1px solid var(--light-gray);
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  z-index: 100;
+  justify-content: space-between;
+  padding-left: var(--rc-pad);
+  padding-right: var(--rc-pad);
 }
 
-.nav-center {
+.rc-nav-brand,
+.rc-nav-clock {
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--rc-muted);
+  width: 160px;
+}
+
+.rc-nav-clock {
+  text-align: right;
+}
+
+.rc-nav-links {
   display: flex;
   gap: 40px;
 }
 
-.navbar a {
-  text-decoration: none;
-  color: var(--gray);
-  transition: color 0.2s;
+.rc-nav-links a {
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--rc-muted);
+  transition: color 0.18s ease;
 }
 
-.navbar a:hover,
-.navbar a.router-link-active {
-  color: var(--black);
+.rc-nav-links a:hover,
+.rc-nav-links a.router-link-active,
+.rc-nav-links a.router-link-exact-active {
+  color: var(--rc-ink);
 }
 
-/* Page container – offsets fixed navbar */
-.page-container {
-  padding-top: 57px;
-  width: 100%;
+/* ── Page area ────────────────────────────────────────────── */
+#rc-main {
+  padding-top: var(--rc-nav);
 }
 
-/* Page transitions */
-.page-enter-active,
-.page-leave-active {
+/* ── Page transitions ─────────────────────────────────────── */
+.rc-fade-enter-active,
+.rc-fade-leave-active {
   transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
+    opacity 0.28s ease,
+    transform 0.28s ease;
 }
-.page-enter-from {
+.rc-fade-enter-from {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(10px);
 }
-.page-leave-to {
+.rc-fade-leave-to {
   opacity: 0;
-  transform: translateY(-16px);
+  transform: translateY(-8px);
 }
 
-/* Scroll reveal */
-.reveal {
+/* ── Scroll reveal (shared) ───────────────────────────────── */
+.rc-reveal {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(28px);
   transition:
-    opacity 0.7s ease,
-    transform 0.7s ease;
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
-.reveal.visible {
+.rc-reveal.rc-visible {
   opacity: 1;
   transform: translateY(0);
 }

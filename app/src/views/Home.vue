@@ -1,70 +1,74 @@
 <template>
-  <div class="home">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-text">
-        <h1 class="hero-name">RYAN<br />CHEN</h1>
-        <p class="hero-sub">DESIGNER / CREATIVE TECHNOLOGIST</p>
+  <div class="hm">
+    <!-- HERO -->
+    <section class="hm-hero">
+      <div class="hm-hero-text">
+        <p class="hm-eyebrow">001 / PORTFOLIO</p>
+        <h1 class="hm-name">RYAN<br /><span class="hm-name-indent">CHEN</span></h1>
+        <p class="hm-role">DESIGNER — CREATIVE TECHNOLOGIST</p>
       </div>
-      <div class="hero-photo">
+      <div class="hm-hero-photo">
         <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=85"
           alt="Ryan Chen"
-          class="hero-img"
+          class="hm-hero-img"
         />
-        <div class="photo-label">AVAILABLE FOR WORK</div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section class="about">
-      <div class="about-content">
-        <div class="about-tag">ABOUT</div>
-        <div class="about-text">
-          <p>
-            I'm a designer and creative technologist passionate about crafting meaningful digital
-            experiences. I blend design thinking with technical execution to build products that
-            resonate with people.
-          </p>
-          <router-link to="/works" class="cta-link">VIEW MY WORKS →</router-link>
+        <div class="hm-badge">
+          <span>AVAILABLE</span>
+          <span>FOR WORK</span>
         </div>
       </div>
     </section>
 
-    <!-- Ticker -->
-    <div class="ticker-wrapper">
-      <div class="ticker">
-        <span v-for="n in 6" :key="n">
-          BRAND STRATEGY &nbsp;&nbsp;·&nbsp;&nbsp; CREATIVE TECH &nbsp;&nbsp;·&nbsp;&nbsp;
-          ILLUSTRATION &nbsp;&nbsp;·&nbsp;&nbsp; MOTION &nbsp;&nbsp;·&nbsp;&nbsp; PRODUCT
-          &nbsp;&nbsp;·&nbsp;&nbsp; UX RESEARCH &nbsp;&nbsp;·&nbsp;&nbsp;
-        </span>
+    <!-- MARQUEE -->
+    <div class="hm-marquee" aria-hidden="true">
+      <div class="hm-marquee-a">
+        BRAND STRATEGY <em>·</em> CREATIVE TECH <em>·</em> ILLUSTRATION <em>·</em> MOTION
+        <em>·</em> PRODUCT DESIGN <em>·</em> UX RESEARCH <em>·</em>&nbsp;
+      </div>
+      <div class="hm-marquee-a" aria-hidden="true">
+        BRAND STRATEGY <em>·</em> CREATIVE TECH <em>·</em> ILLUSTRATION <em>·</em> MOTION
+        <em>·</em> PRODUCT DESIGN <em>·</em> UX RESEARCH <em>·</em>&nbsp;
       </div>
     </div>
 
-    <!-- Featured Works -->
-    <section class="featured">
-      <div class="featured-header">
-        <span class="section-label">SELECTED WORKS</span>
-        <router-link to="/works" class="see-all">SEE ALL →</router-link>
+    <!-- ABOUT -->
+    <section class="hm-about rc-reveal">
+      <p class="hm-section-label">ABOUT</p>
+      <div class="hm-about-body">
+        <p class="hm-about-copy">
+          I'm a designer and creative technologist passionate about crafting meaningful digital
+          experiences. I blend design thinking with technical execution to build products that
+          resonate with people.
+        </p>
+        <router-link to="/works" class="hm-cta">VIEW MY WORKS →</router-link>
       </div>
-      <div class="featured-grid">
-        <div
-          v-for="(work, i) in featuredWorks"
+    </section>
+
+    <!-- SELECTED WORKS -->
+    <section class="hm-sel">
+      <div class="hm-sel-head">
+        <p class="hm-section-label">SELECTED WORKS</p>
+        <router-link to="/works" class="hm-see-all">SEE ALL →</router-link>
+      </div>
+      <ul class="hm-list">
+        <li
+          v-for="(w, i) in featured"
           :key="i"
-          class="featured-card reveal"
+          class="hm-list-item rc-reveal"
           @click="$router.push('/works')"
         >
-          <div class="card-img">
-            <img :src="work.img" :alt="work.title" />
+          <span class="hm-item-num">{{ String(i + 1).padStart(2, '0') }}</span>
+          <div class="hm-item-img">
+            <img :src="w.img" :alt="w.title" />
           </div>
-          <div class="card-info">
-            <span class="card-num">{{ String(i + 1).padStart(2, '0') }}</span>
-            <span class="card-title">{{ work.title }}</span>
-            <span class="card-tag">{{ work.tag }}</span>
+          <div class="hm-item-text">
+            <strong class="hm-item-title">{{ w.title }}</strong>
+            <span class="hm-item-tag">{{ w.tag }}</span>
           </div>
-        </div>
-      </div>
+          <span class="hm-item-arrow">→</span>
+        </li>
+      </ul>
     </section>
   </div>
 </template>
@@ -74,335 +78,363 @@ export default {
   name: 'Home',
   data() {
     return {
-      featuredWorks: [
+      featured: [
         {
           title: 'Bento — Meals, Matched',
-          tag: 'PRODUCT',
-          img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80',
+          tag: 'PRODUCT · 2025',
+          img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80',
         },
         {
           title: 'YHack 2026',
-          tag: 'CREATIVE TECH',
-          img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80',
+          tag: 'CREATIVE TECH · 2026',
+          img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80',
         },
         {
-          title: 'ThinkPad Campaign',
-          tag: 'BRAND STRATEGY',
-          img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80',
+          title: 'ThinkPad X1 Carbon',
+          tag: 'BRAND STRATEGY · 2026',
+          img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80',
         },
       ],
     }
   },
   mounted() {
-    this.setupReveal()
-  },
-  methods: {
-    setupReveal() {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-              setTimeout(() => entry.target.classList.add('visible'), i * 80)
-            }
-          })
-        },
-        { threshold: 0.12 },
-      )
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    },
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) setTimeout(() => e.target.classList.add('rc-visible'), i * 90)
+        })
+      },
+      { threshold: 0.08 },
+    )
+    this.$el.querySelectorAll('.rc-reveal').forEach((el) => io.observe(el))
   },
 }
 </script>
 
 <style scoped>
-.home {
+/* All class names are prefixed hm- (home) */
+
+.hm {
   width: 100%;
 }
 
-/* ── Hero ─────────────────────────────────────────────────────────────────── */
-/*
-  KEY FIX: Removed `min-height: calc(100vh - 57px)` and `align-items: center`.
-  The hero now sizes itself to its content. The photo column uses `align-self:
-  stretch` so the image fills the full column height without creating empty
-  space. gap is tightened and padding-bottom is added so the photo bleeds to
-  the section edge naturally.
-*/
-.hero {
+/* ── HERO ─────────────────────────────────────────────────── */
+.hm-hero {
   display: grid;
-  grid-template-columns: 1fr 42%;
-  gap: 0;
-  padding: 60px 0 0 40px;
-  border-bottom: 1px solid var(--light-gray);
-  overflow: hidden;
+  grid-template-columns: 1fr 38%;
+  border-bottom: 1px solid var(--rc-rule);
 }
 
-.hero-text {
-  padding-bottom: 60px;
+.hm-hero-text {
+  padding-top: clamp(48px, 7vw, 96px);
+  padding-bottom: clamp(48px, 7vw, 80px);
+  padding-left: var(--rc-pad);
+  padding-right: var(--rc-pad);
+  border-right: 1px solid var(--rc-rule);
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding-right: 40px;
 }
 
-.hero-name {
-  font-family: var(--font-display);
-  font-size: clamp(80px, 11vw, 160px);
-  font-weight: 800;
-  line-height: 0.88;
-  letter-spacing: -0.03em;
-  color: var(--black);
+.hm-eyebrow {
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--rc-muted);
+  margin-bottom: auto;
 }
 
-.hero-sub {
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: var(--gray);
-  margin-top: 24px;
+.hm-name {
+  font-family: var(--rc-display);
+  font-size: clamp(88px, 13vw, 188px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: var(--rc-ink);
+  margin-top: 28px;
+  margin-bottom: 24px;
 }
 
-.hero-photo {
+.hm-name-indent {
+  display: inline-block;
+  padding-left: 0.15em;
+}
+
+.hm-role {
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--rc-muted);
+}
+
+/* Photo column — stretches to match text height exactly */
+.hm-hero-photo {
   position: relative;
-  align-self: stretch; /* fills column height exactly — no dead space */
-  overflow: hidden;
 }
 
-.hero-img {
+.hm-hero-img {
   width: 100%;
   height: 100%;
-  min-height: 420px;
   object-fit: cover;
   object-position: center 15%;
-  display: block;
-  filter: grayscale(15%);
+  filter: saturate(0.82);
 }
 
-.photo-label {
+.hm-badge {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: var(--white);
-  border: 1.5px solid var(--black);
-  padding: 8px 14px;
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-/* ── About ────────────────────────────────────────────────────────────────── */
-.about {
-  padding: 70px 40px;
-  border-bottom: 1px solid var(--light-gray);
-}
-
-.about-content {
+  bottom: 22px;
+  right: 22px;
+  background-color: var(--rc-paper);
+  border: 1px solid var(--rc-ink);
+  padding: 10px 16px;
   display: flex;
-  gap: 60px;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--rc-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.8;
 }
 
-.about-tag {
-  flex: 0 0 200px;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--gray);
-  padding-top: 6px;
+/* ── MARQUEE ──────────────────────────────────────────────── */
+/*
+  Two identical divs, both animating from 0 to -100%.
+  Second one starts at +100% so the two fill the track
+  seamlessly — no JS, no gaps, no jumps.
+*/
+.hm-marquee {
+  overflow: hidden;
+  display: flex;
+  background-color: var(--rc-ink);
+  border-bottom: 1px solid var(--rc-rule);
 }
 
-.about-text {
-  flex: 1;
-  font-size: 20px;
+.hm-marquee-a {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--rc-paper);
+  animation: hm-scroll 26s linear infinite;
+}
+
+.hm-marquee-a:nth-child(2) {
+  animation-delay: -13s;
+}
+
+.hm-marquee-a em {
+  font-style: normal;
+  color: var(--rc-red);
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+@keyframes hm-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ── ABOUT ────────────────────────────────────────────────── */
+.hm-about {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding-top: clamp(52px, 6vw, 80px);
+  padding-bottom: clamp(52px, 6vw, 80px);
+  padding-left: var(--rc-pad);
+  padding-right: var(--rc-pad);
+  border-bottom: 1px solid var(--rc-rule);
+  align-items: start;
+}
+
+.hm-section-label {
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--rc-muted);
+  padding-top: 5px;
+}
+
+.hm-about-body {
+  max-width: 560px;
+}
+
+.hm-about-copy {
+  font-size: clamp(17px, 2vw, 21px);
   font-weight: 300;
-  line-height: 1.65;
-  max-width: 580px;
-}
-
-.about-text p {
+  line-height: 1.7;
+  color: var(--rc-ink);
   margin-bottom: 36px;
 }
 
-.cta-link {
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--black);
-  text-decoration: none;
+.hm-cta {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding-bottom: 4px;
-  border-bottom: 1.5px solid var(--black);
-  transition: gap 0.2s;
-}
-.cta-link:hover {
-  gap: 16px;
-}
-
-/* ── Ticker ───────────────────────────────────────────────────────────────── */
-.ticker-wrapper {
-  width: 100%;
-  overflow: hidden;
-}
-
-.ticker {
-  border-top: 1px solid var(--light-gray);
-  border-bottom: 1px solid var(--light-gray);
-  padding: 18px 0;
-  background: var(--black);
-  white-space: nowrap;
-  font-family: var(--font-display);
+  font-family: var(--rc-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.12em;
-  color: var(--white);
+  color: var(--rc-ink);
+  border-bottom: 1px solid var(--rc-ink);
+  padding-bottom: 3px;
+  transition:
+    gap 0.22s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
 }
 
-.ticker span {
-  display: inline-block;
-  animation: tickerScroll 30s linear infinite;
+.hm-cta:hover {
+  gap: 16px;
+  color: var(--rc-red);
+  border-bottom-color: var(--rc-red);
 }
 
-@keyframes tickerScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+/* ── SELECTED WORKS ───────────────────────────────────────── */
+.hm-sel {
+  padding-top: clamp(52px, 6vw, 80px);
+  padding-bottom: clamp(64px, 8vw, 100px);
+  padding-left: var(--rc-pad);
+  padding-right: var(--rc-pad);
 }
 
-/* ── Featured Works ───────────────────────────────────────────────────────── */
-.featured {
-  padding: 70px 40px 80px;
-}
-
-.featured-header {
+.hm-sel-head {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 44px;
+  margin-bottom: 36px;
 }
 
-.section-label {
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--gray);
+.hm-see-all {
+  font-family: var(--rc-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--rc-ink);
+  transition:
+    color 0.18s ease,
+    letter-spacing 0.22s ease;
 }
 
-.see-all {
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--black);
-  text-decoration: none;
-  transition: letter-spacing 0.2s;
-}
-.see-all:hover {
+.hm-see-all:hover {
+  color: var(--rc-red);
   letter-spacing: 0.2em;
 }
 
-.featured-grid {
+.hm-list {
+  list-style: none;
+  border-top: 1px solid var(--rc-rule);
+}
+
+.hm-list-item {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-
-.featured-card {
+  grid-template-columns: 36px 96px 1fr 20px;
+  align-items: center;
+  gap: 24px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  border-bottom: 1px solid var(--rc-rule);
   cursor: pointer;
-  overflow: hidden;
+  transition: background-color 0.18s ease;
 }
 
-.card-img {
-  overflow: hidden;
-  aspect-ratio: 3/2;
+.hm-list-item:hover {
+  background-color: var(--rc-dim);
 }
 
-.card-img img {
+.hm-item-num {
+  font-family: var(--rc-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--rc-muted);
+}
+
+.hm-item-img {
+  width: 96px;
+  height: 64px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.hm-item-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
 }
 
-.featured-card:hover .card-img img {
-  transform: scale(1.05);
+.hm-list-item:hover .hm-item-img img {
+  transform: scale(1.07);
 }
 
-.card-info {
+.hm-item-text {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 14px 0 0;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.card-num {
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--gray);
-  letter-spacing: 0.1em;
+.hm-item-title {
+  font-family: var(--rc-display);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
-.card-title {
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 700;
-  flex: 1;
-}
-
-.card-tag {
-  font-family: var(--font-display);
+.hm-item-tag {
+  font-family: var(--rc-mono);
   font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--gray);
-  border: 1px solid var(--light-gray);
-  padding: 3px 8px;
+  letter-spacing: 0.1em;
+  color: var(--rc-muted);
 }
 
-/* ── Mobile ───────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .hero {
+.hm-item-arrow {
+  font-size: 15px;
+  color: var(--rc-muted);
+  justify-self: end;
+  transition:
+    transform 0.2s ease,
+    color 0.18s ease;
+}
+
+.hm-list-item:hover .hm-item-arrow {
+  transform: translateX(4px);
+  color: var(--rc-red);
+}
+
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .hm-hero {
     grid-template-columns: 1fr;
-    padding: 50px 20px 0;
-    gap: 40px;
   }
-  .hero-text {
-    padding-right: 0;
-    padding-bottom: 0;
+  .hm-hero-text {
+    border-right: none;
+    border-bottom: 1px solid var(--rc-rule);
   }
-  .hero-photo {
-    margin: 0 -20px; /* bleed to edges on mobile */
+  .hm-hero-photo {
+    display: none;
   }
-  .hero-img {
-    min-height: 380px;
-    aspect-ratio: 4/5;
-    height: auto;
-  }
-  .about {
-    padding: 50px 20px;
-  }
-  .about-content {
-    flex-direction: column;
-    gap: 24px;
-  }
-  .about-tag {
-    flex: auto;
-  }
-  .featured {
-    padding: 50px 20px 60px;
-  }
-  .featured-grid {
+  .hm-about {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 18px;
+  }
+  .hm-list-item {
+    grid-template-columns: 28px 68px 1fr 16px;
+    gap: 14px;
+  }
+  .hm-item-img {
+    width: 68px;
+    height: 46px;
   }
 }
 </style>
