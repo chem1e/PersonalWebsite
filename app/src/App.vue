@@ -1,34 +1,23 @@
 <template>
-  <div class="app-shell">
-    <nav class="navbar">
+  <div class="shell">
+    <nav class="nav">
       <router-link to="/" class="nav-logo">
-        <span class="logo-bracket">[</span>
-        <span class="logo-name">YOUR_NAME</span>
-        <span class="logo-bracket">]</span>
+        <span class="logo-mark">✦</span>
+        <span class="logo-name">Ryan Chen</span>
       </router-link>
 
       <div class="nav-links">
-        <router-link to="/" class="nav-link" exact-active-class="active">
-          <span class="link-index">01</span>
-          <span class="link-label">Home</span>
-        </router-link>
-        <router-link to="/work" class="nav-link" active-class="active">
-          <span class="link-index">02</span>
-          <span class="link-label">Work</span>
-        </router-link>
-        <router-link to="/contact" class="nav-link" active-class="active">
-          <span class="link-index">03</span>
-          <span class="link-label">Contact</span>
-        </router-link>
+        <router-link to="/" class="nav-link" exact-active-class="active">Home</router-link>
+        <router-link to="/work" class="nav-link" active-class="active">Work</router-link>
+        <router-link to="/contact" class="nav-link" active-class="active">Contact</router-link>
       </div>
 
-      <div class="nav-status">
-        <span class="status-dot"></span>
-        <span class="status-text">Available for work</span>
+      <div class="nav-aside">
+        <span class="clock">{{ timezone }} {{ time }}</span>
       </div>
     </nav>
 
-    <main class="main-content">
+    <main>
       <router-view v-slot="{ Component }">
         <transition name="page" mode="out-in">
           <component :is="Component" />
@@ -37,20 +26,61 @@
     </main>
 
     <footer class="footer">
-      <span class="footer-copy">© 2025 YOUR_NAME</span>
-      <span class="footer-version">v1.0.0</span>
+      <span>© 2026 Ryan Chen</span>
+      <span class="footer-mid">Manufactured to life</span>
+      <span>{{ timezone }} {{ time }}</span>
     </footer>
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const time = ref('')
+const timezone = ref('')
+
+function updateTime() {
+  const now = new Date()
+
+  // Format time as HH:MM:SS
+  time.value = now.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  })
+
+  // Derive GMT offset string e.g. "GMT-5" or "GMT+2"
+  const offsetMinutes = -now.getTimezoneOffset()
+  const sign = offsetMinutes >= 0 ? '+' : '-'
+  const absHours = Math.floor(Math.abs(offsetMinutes) / 60)
+  const absMins = Math.abs(offsetMinutes) % 60
+  timezone.value =
+    absMins > 0
+      ? `GMT${sign}${absHours}:${String(absMins).padStart(2, '0')}`
+      : `GMT${sign}${absHours}`
+}
+
+let ticker = null
+
+onMounted(() => {
+  updateTime()
+  ticker = setInterval(updateTime, 1000)
+})
+
+onUnmounted(() => {
+  clearInterval(ticker)
+})
+</script>
+
 <style scoped>
-.app-shell {
+.shell {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.navbar {
+.nav {
   position: fixed;
   top: 0;
   left: 0;
@@ -59,30 +89,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 3rem;
-  height: 64px;
-  background: rgba(8, 12, 16, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  padding: 0 2.5rem;
+  height: 60px;
+  background: rgba(245, 239, 226, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 16px;
-  letter-spacing: 0.05em;
-  color: var(--text-primary);
-  transition: color 0.2s;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.02em;
 }
 
-.nav-logo:hover .logo-name {
-  color: var(--accent);
-}
-
-.logo-bracket {
-  color: var(--accent);
-  font-family: var(--font-mono);
+.logo-mark {
+  color: var(--amber);
+  font-size: 12px;
 }
 
 .nav-links {
@@ -91,16 +119,14 @@
 }
 
 .nav-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.05em;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
   transition: color 0.2s;
   position: relative;
-  padding-bottom: 2px;
+  padding-bottom: 1px;
 }
 
 .nav-link::after {
@@ -110,7 +136,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--accent);
+  background: var(--amber);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s ease;
@@ -118,77 +144,48 @@
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--text-primary);
+  color: var(--ink);
 }
-
 .nav-link:hover::after,
 .nav-link.active::after {
   transform: scaleX(1);
 }
 
-.link-index {
-  color: var(--accent);
-  font-size: 10px;
-}
-
-.link-label {
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.nav-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.clock {
+  font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
 }
 
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #00e676;
-  box-shadow: 0 0 8px #00e676;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
-
-.main-content {
+main {
   flex: 1;
-  padding-top: 64px;
+  padding-top: 60px;
 }
 
 .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 3rem;
-  border-top: 1px solid var(--border);
-  font-size: 11px;
-  color: var(--text-muted);
+  padding: 1.5rem 2.5rem;
+  border-top: 1px solid var(--rule);
   font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 
-.footer-version {
-  color: var(--accent);
-  opacity: 0.5;
+.footer-mid {
+  color: var(--amber);
 }
 
 @media (max-width: 768px) {
-  .navbar {
+  .nav {
     padding: 0 1.25rem;
   }
-  .nav-status {
+  .nav-aside {
     display: none;
   }
   .nav-links {
@@ -196,6 +193,9 @@
   }
   .footer {
     padding: 1.25rem;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
   }
 }
 </style>

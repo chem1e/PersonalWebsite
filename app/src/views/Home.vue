@@ -1,102 +1,115 @@
 <template>
   <div class="home">
+    <!-- HERO -->
     <section class="hero">
-      <div class="hero-grid-bg"></div>
-      <div class="hero-inner">
-        <div class="hero-text">
-          <p class="hero-greeting"><span class="cursor-blink">_</span> Hello, World.</p>
-          <h1 class="hero-title">I'm <span class="gradient-text">YOUR NAME</span></h1>
-          <h2 class="hero-subtitle">Software Engineer</h2>
-          <p class="hero-desc">
-            I design and build high-performance systems, scalable architectures, and clean
-            interfaces. Based in <span class="accent-text">Your City</span> — building things that
-            matter.
-          </p>
-          <div class="hero-actions">
-            <router-link to="/work" class="btn-primary">
-              View Work <span class="btn-arrow">→</span>
-            </router-link>
-            <router-link to="/contact" class="btn-ghost"> Get in Touch </router-link>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="avatar-frame">
+      <div class="container">
+        <div class="hero-top">
+          <span class="greeting">✦ Engineer and Innovater</span>
+          <div class="hero-photo-mobile">
             <img
-              src="https://placehold.co/400x500/0d1117/00d4ff?text=YOUR+PHOTO&font=mono"
-              alt="Profile photo placeholder"
-              class="avatar-img"
+              src="https://placehold.co/320x400/e8dcc8/a0763a?text=Your+Photo&font=playfair-display"
+              alt="Your photo"
             />
-            <div class="avatar-glow"></div>
-            <div class="avatar-corner tl"></div>
-            <div class="avatar-corner tr"></div>
-            <div class="avatar-corner bl"></div>
-            <div class="avatar-corner br"></div>
-          </div>
-          <div class="floating-badge badge-1">
-            <span class="badge-icon">⚡</span>
-            <span>5+ years exp.</span>
-          </div>
-          <div class="floating-badge badge-2">
-            <span class="badge-icon">🔧</span>
-            <span>20+ projects</span>
           </div>
         </div>
-      </div>
 
-      <div class="hero-scroll-hint">
-        <span>scroll</span>
-        <div class="scroll-line"></div>
+        <div class="hero-body">
+          <div class="hero-left">
+            <h1 class="hero-heading">Hello,<br />I'm <em>Ryan Chen</em></h1>
+            <p class="hero-sub">
+              a senior at Staten Island Technical High School with a passion for engineering,
+              technology, and building impactful projects. I’m especially interested in
+              problem-solving through design, software, and innovation, and I’m always looking for
+              opportunities to learn, collaborate, and create meaningful solutions.
+            </p>
+            <div class="hero-cta">
+              <router-link to="/work" class="cta-primary">See my work</router-link>
+              <router-link to="/contact" class="cta-ghost">Say hello</router-link>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-photo-wrap">
+              <img
+                src="https://placehold.co/380x480/e8dcc8/a0763a?text=Your+Photo&font=playfair-display"
+                alt="Your photo"
+                class="hero-photo"
+              />
+              <span class="photo-tag">📍 Your City</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-scroll">
+          <span>scroll</span>
+          <div class="scroll-rule"></div>
+        </div>
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section class="about">
       <div class="container">
-        <p class="section-label">// about me</p>
-        <div class="about-grid">
-          <div class="about-text">
-            <h3 class="about-title">
-              Engineer by trade,<br /><span class="gradient-text">problem solver</span> by nature.
-            </h3>
-            <p class="about-body">
-              I specialize in building robust backend systems and modern frontend experiences. My
-              work spans distributed systems, API design, cloud infrastructure, and product
-              engineering.
+        <div class="about-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">About me</span>
+        </div>
+
+        <div class="about-layout">
+          <div class="about-image-side">
+            <img
+              src="https://placehold.co/360x440/ddd0b8/6b5a3e?text=Image+2&font=playfair-display"
+              alt="About photo"
+              class="about-photo"
+            />
+          </div>
+
+          <div class="about-text-side">
+            <h2 class="about-heading">A bit more <br /><em>about me</em></h2>
+            <p class="about-p">
+              I'm an aspiring engineer driven by precision, clean architecture, and hands-on
+              building. My technical toolkit spans software development,
+              <strong>Arduino prototyping</strong>, and 3D modeling in
+              <strong>Autodesk Inventor and AutoCAD</strong>. I love diving into the details that
+              bridge physical hardware with digital design.
             </p>
-            <p class="about-body">
-              When I'm not shipping code, I'm exploring new frameworks, contributing to open source,
-              or writing about engineering challenges I've faced in production.
+            <p class="about-p">
+              Outside of engineering, I'm a leader and community builder. As
+              <strong>VP of the Korean Culture Club</strong> and
+              <strong>Historian for the Asian American Culture Club</strong>, I directed large-scale
+              campus culture shows. I also manage digital engagement as the
+              <strong>Social Media Manager for the Archery Club</strong>, bringing creative
+              communication to everything I do.
             </p>
-            <div class="about-stats">
-              <div class="stat-item" v-for="stat in stats" :key="stat.label">
-                <span class="stat-value">{{ stat.value }}</span>
-                <span class="stat-label">{{ stat.label }}</span>
+
+            <div class="counters">
+              <div class="counter" v-for="s in stats" :key="s.label">
+                <em class="counter-num">{{ s.value }}</em>
+                <span class="counter-label">{{ s.label }}</span>
               </div>
             </div>
           </div>
-          <div class="about-image-col">
-            <div class="about-img-frame">
-              <img
-                src="https://placehold.co/480x380/111820/7b61ff?text=IMAGE+2&font=mono"
-                alt="About image placeholder"
-                class="about-img"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
+    <!-- SKILLS -->
     <section class="skills">
       <div class="container">
-        <p class="section-label">// tech stack</p>
-        <h3 class="skills-title">Tools I work with</h3>
-        <div class="skills-grid">
-          <div class="skill-category" v-for="cat in skillCategories" :key="cat.name">
-            <p class="skill-cat-label">{{ cat.name }}</p>
-            <div class="skill-tags">
-              <span class="skill-tag" v-for="skill in cat.skills" :key="skill">{{ skill }}</span>
-            </div>
+        <div class="skills-intro">
+          <div class="about-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">Craft</span>
+          </div>
+          <h2 class="skills-heading">Tools of the trade</h2>
+        </div>
+
+        <div class="skills-body">
+          <div class="skill-item" v-for="cat in skillCategories" :key="cat.name">
+            <h3 class="skill-title">{{ cat.name }}</h3>
+            <ul class="skill-pills">
+              <li v-for="s in cat.skills" :key="s">{{ s }}</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -106,500 +119,359 @@
 
 <script setup>
 const stats = [
-  { value: '5+', label: 'Years Experience' },
-  { value: '20+', label: 'Projects Shipped' },
+  { value: '5+', label: 'Years experience' },
+  { value: '20+', label: 'Projects shipped' },
   { value: '3', label: 'Companies' },
-  { value: '∞', label: 'Coffee Consumed' },
 ]
-
 const skillCategories = [
-  {
-    name: 'Languages',
-    skills: ['Python', 'TypeScript', 'Go', 'Rust', 'SQL'],
-  },
-  {
-    name: 'Frontend',
-    skills: ['Vue', 'React', 'Next.js', 'CSS / Tailwind'],
-  },
-  {
-    name: 'Backend',
-    skills: ['Node.js', 'FastAPI', 'PostgreSQL', 'Redis', 'GraphQL'],
-  },
-  {
-    name: 'Infrastructure',
-    skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD'],
-  },
+  { name: 'Languages', skills: ['Python', 'TypeScript', 'Go', 'Rust', 'SQL'] },
+  { name: 'Frontend', skills: ['Vue', 'React', 'Next.js', 'Tailwind CSS'] },
+  { name: 'Backend', skills: ['Node.js', 'FastAPI', 'PostgreSQL', 'Redis'] },
+  { name: 'Infrastructure', skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform'] },
 ]
 </script>
 
 <style scoped>
-.home {
-  overflow-x: hidden;
-}
-
+/* ─── HERO ─────────────────────────────────────────── */
 .hero {
-  position: relative;
-  min-height: calc(100vh - 64px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
+  padding: 5rem 0 4rem;
 }
 
-.hero-grid-bg {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-}
-
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 4rem;
-  align-items: center;
-  padding: 4rem 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.hero-greeting {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--accent);
-  margin-bottom: 1rem;
-  letter-spacing: 0.1em;
-}
-
-.cursor-blink {
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.hero-subtitle {
-  font-family: var(--font-mono);
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  font-weight: 400;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.08em;
-}
-
-.hero-desc {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  max-width: 520px;
-  margin-bottom: 2.5rem;
-}
-
-.accent-text {
-  color: var(--accent);
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0.75rem 1.75rem;
-  background: var(--accent);
-  color: #000;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border: none;
-  transition: all 0.2s;
-  clip-path: polygon(
-    0 0,
-    calc(100% - 10px) 0,
-    100% 10px,
-    100% 100%,
-    10px 100%,
-    0 calc(100% - 10px)
-  );
-}
-
-.btn-primary:hover {
-  background: #33ddff;
-  transform: translateY(-2px);
-}
-
-.btn-arrow {
-  transition: transform 0.2s;
-}
-
-.btn-primary:hover .btn-arrow {
-  transform: translateX(4px);
-}
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.75rem;
-  background: transparent;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border: 1px solid var(--border-accent);
-  transition: all 0.2s;
-}
-
-.btn-ghost:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-dim);
-}
-
-.hero-visual {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.avatar-frame {
-  position: relative;
-  width: 340px;
-  height: 420px;
-}
-
-.avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(20%) contrast(1.05);
-  transition: filter 0.3s;
-}
-
-.avatar-frame:hover .avatar-img {
-  filter: grayscale(0%) contrast(1.1);
-}
-
-.avatar-glow {
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  z-index: -1;
-  opacity: 0.4;
-}
-
-.avatar-corner {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-color: var(--accent);
-  border-style: solid;
-}
-
-.avatar-corner.tl {
-  top: -4px;
-  left: -4px;
-  border-width: 2px 0 0 2px;
-}
-.avatar-corner.tr {
-  top: -4px;
-  right: -4px;
-  border-width: 2px 2px 0 0;
-}
-.avatar-corner.bl {
-  bottom: -4px;
-  left: -4px;
-  border-width: 0 0 2px 2px;
-}
-.avatar-corner.br {
-  bottom: -4px;
-  right: -4px;
-  border-width: 0 2px 2px 0;
-}
-
-.floating-badge {
-  position: absolute;
+.hero-top {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-accent);
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.greeting {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--text-secondary);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.hero-photo-mobile {
+  display: none;
+}
+
+.hero-body {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 5rem;
+  align-items: end;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 1.75rem;
+}
+
+.hero-heading em {
+  font-style: italic;
+  color: var(--amber);
+}
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--ink-2);
+  line-height: 1.85;
+  max-width: 400px;
+  margin-bottom: 2.75rem;
+  font-weight: 300;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.cta-primary {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--ink);
+  padding: 0.75rem 1.75rem;
+  transition: background 0.25s;
+}
+.cta-primary:hover {
+  background: var(--amber);
+}
+
+.cta-ghost {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  position: relative;
+  padding-bottom: 2px;
+}
+.cta-ghost::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--rule);
+  transition: background 0.2s;
+}
+.cta-ghost:hover {
+  color: var(--amber);
+}
+.cta-ghost:hover::after {
+  background: var(--amber);
+}
+
+/* photo */
+.hero-photo-wrap {
+  position: relative;
+}
+.hero-photo {
+  width: 100%;
+  display: block;
+  filter: sepia(15%) brightness(1.02);
+  transition: filter 0.5s;
+}
+.hero-photo:hover {
+  filter: sepia(4%);
+}
+
+.photo-tag {
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-warm);
+  border: 1px solid var(--rule);
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
   white-space: nowrap;
 }
 
-.badge-1 {
-  bottom: 40px;
-  left: -60px;
-}
-.badge-2 {
-  top: 60px;
-  right: -50px;
-}
-
-.badge-icon {
-  font-size: 14px;
-}
-
-.hero-scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 3rem;
+.hero-scroll {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 1rem;
+  padding-top: 2rem;
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--ink-3);
 }
-
-.scroll-line {
-  width: 40px;
+.scroll-rule {
+  flex: 1;
+  max-width: 60px;
   height: 1px;
-  background: var(--text-muted);
-  position: relative;
-  overflow: hidden;
+  background: var(--rule);
 }
 
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--accent);
-  animation: scanline 2s linear infinite;
-}
-
-@keyframes scanline {
-  to {
-    left: 100%;
-  }
-}
-
+/* ─── ABOUT ─────────────────────────────────────────── */
 .about {
-  padding: 6rem 0;
-  border-top: 1px solid var(--border);
+  padding: 6rem 0 7rem;
+  background: var(--bg-warm);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-  margin-top: 2rem;
-}
-
-.about-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.about-body {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.9;
-  margin-bottom: 1rem;
-}
-
-.about-stats {
+.about-eyebrow {
   display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.eyebrow-line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--ink-3);
+}
+.eyebrow-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 
-.stat-item {
+.about-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.about-photo {
+  width: 100%;
+  display: block;
+  filter: sepia(12%);
+  transition: filter 0.4s;
+}
+.about-photo:hover {
+  filter: sepia(2%);
+}
+
+.about-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+.about-heading em {
+  font-style: italic;
+  color: var(--amber);
+}
+
+.about-p {
+  font-family: var(--font-body);
+  font-size: 1.08rem;
+  color: var(--ink-2);
+  line-height: 1.9;
+  font-weight: 300;
+  margin-bottom: 1.25rem;
+  max-width: 500px;
+}
+
+.counters {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
+}
+.counter {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-
-.stat-value {
+.counter-num {
   font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--accent);
+  font-size: 2.4rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--amber);
+  line-height: 1;
 }
-
-.stat-label {
+.counter-label {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--ink-3);
 }
 
-.about-img-frame {
-  position: relative;
-  border: 1px solid var(--border-accent);
-  overflow: hidden;
-}
-
-.about-img-frame::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  z-index: 1;
-}
-
-.about-img {
-  width: 100%;
-  display: block;
-  filter: grayscale(15%);
-  transition: filter 0.3s;
-}
-
-.about-img:hover {
-  filter: grayscale(0%);
-}
-
+/* ─── SKILLS ─────────────────────────────────────────── */
 .skills {
-  padding: 5rem 0 7rem;
-  border-top: 1px solid var(--border);
+  padding: 6rem 0 8rem;
 }
 
-.skills-title {
+.skills-intro {
+  margin-bottom: 3.5rem;
+}
+.skills-heading {
   font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 3rem;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 400;
+  color: var(--ink);
   margin-top: 0.5rem;
 }
 
-.skills-grid {
+.skills-body {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
 }
 
-.skill-category {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  padding: 1.5rem;
-  transition: border-color 0.2s;
+.skill-item {
+  padding: 2rem;
+  background: var(--bg-warm);
+  border: 1px solid var(--rule);
+  transition: box-shadow 0.3s;
+}
+.skill-item:hover {
+  box-shadow: 0 4px 24px rgba(44, 36, 22, 0.07);
 }
 
-.skill-category:hover {
-  border-color: var(--border-accent);
-}
-
-.skill-cat-label {
+.skill-title {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
+  color: var(--amber);
+  margin-bottom: 1.25rem;
+  font-weight: 400;
 }
 
-.skill-tags {
+.skill-pills {
+  list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.skill-pills li {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-2);
+  font-weight: 300;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.skill-pills li:last-child {
+  border-bottom: none;
 }
 
-.skill-tag {
-  padding: 5px 12px;
-  background: rgba(0, 212, 255, 0.06);
-  border: 1px solid rgba(0, 212, 255, 0.15);
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  transition: all 0.15s;
-}
-
-.skill-tag:hover {
-  background: var(--accent-dim);
-  color: var(--accent);
-  border-color: var(--accent-border);
-}
-
+/* ─── RESPONSIVE ─────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .hero-inner {
+  .hero-body {
     grid-template-columns: 1fr;
-    text-align: center;
+    gap: 3rem;
   }
-  .hero-desc {
-    margin: 0 auto 2.5rem;
-  }
-  .hero-actions {
-    justify-content: center;
-  }
-  .hero-visual {
+  .hero-right {
     display: none;
   }
-  .about-grid {
+  .about-layout {
     grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  .about-image-col {
+  .about-image-side {
     display: none;
+  }
+  .skills-body {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .container {
     padding: 0 1.25rem;
   }
-  .hero-inner {
-    padding: 3rem 1.25rem;
+  .skills-body {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
-  .about-stats {
-    gap: 1.25rem;
+  .counters {
+    gap: 2rem;
     flex-wrap: wrap;
   }
-  .hero-scroll-hint {
-    left: 1.25rem;
+  .hero-cta {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 </style>

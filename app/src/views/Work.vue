@@ -1,71 +1,57 @@
 <template>
-  <div class="work-page">
-    <div class="page-header">
+  <div class="work">
+    <!-- HEADER -->
+    <section class="work-header">
       <div class="container">
-        <p class="section-label">// selected work</p>
-        <h1 class="page-title">Projects &<br /><span class="gradient-text">Case Studies</span></h1>
-        <p class="page-desc">
-          A selection of things I've built — from production systems to side experiments.
-        </p>
-      </div>
-    </div>
-
-    <div class="filter-bar">
-      <div class="container">
-        <div class="filters">
-          <button
-            v-for="tag in filterTags"
-            :key="tag"
-            class="filter-btn"
-            :class="{ active: activeFilter === tag }"
-            @click="activeFilter = tag"
-          >
-            {{ tag }}
-          </button>
+        <div class="header-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">Selected work</span>
         </div>
+        <h1 class="work-heading">Things I've<br /><em>made & built</em></h1>
+        <p class="work-subhead">Each project is a small story about a problem worth solving.</p>
       </div>
-    </div>
+    </section>
 
-    <section class="projects">
+    <!-- FILTERS -->
+    <section class="filters-bar">
+      <div class="container filters-inner">
+        <button
+          v-for="tag in filterTags"
+          :key="tag"
+          class="filter"
+          :class="{ active: activeFilter === tag }"
+          @click="activeFilter = tag"
+        >
+          {{ tag }}
+        </button>
+      </div>
+    </section>
+
+    <!-- PROJECT LIST -->
+    <section class="project-list">
       <div class="container">
-        <div class="projects-grid">
-          <article
-            v-for="(project, i) in filteredProjects"
-            :key="project.title"
-            class="project-card"
-            :class="{ featured: project.featured }"
-          >
-            <div class="card-image-wrap">
-              <img
-                :src="project.image"
-                :alt="`${project.title} screenshot placeholder`"
-                class="card-image"
-              />
-              <div class="card-overlay">
-                <div class="overlay-links">
-                  <a href="#" class="overlay-btn"> <span>Live Demo</span> ↗ </a>
-                  <a href="#" class="overlay-btn ghost"> <span>GitHub</span> → </a>
-                </div>
-              </div>
-              <div class="card-index">{{ String(i + 1).padStart(2, '0') }}</div>
-            </div>
+        <p v-if="filteredProjects.length === 0" class="empty">Nothing here for that filter yet.</p>
 
-            <div class="card-body">
-              <div class="card-tags">
-                <span class="card-tag" v-for="tag in project.tags" :key="tag">{{ tag }}</span>
-              </div>
-              <h3 class="card-title">{{ project.title }}</h3>
-              <p class="card-desc">{{ project.description }}</p>
-              <div class="card-meta">
-                <span class="card-year">{{ project.year }}</span>
-                <span class="card-role">{{ project.role }}</span>
-              </div>
-            </div>
-          </article>
-        </div>
+        <div v-for="(project, i) in filteredProjects" :key="project.title" class="project">
+          <div class="project-image">
+            <img :src="project.image" :alt="project.title" class="proj-img" />
+          </div>
 
-        <div v-if="filteredProjects.length === 0" class="no-results">
-          <p>// no projects found for that filter</p>
+          <div class="project-content">
+            <div class="project-top">
+              <span class="proj-index">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span class="proj-year">{{ project.year }}</span>
+            </div>
+            <h2 class="proj-title">{{ project.title }}</h2>
+            <p class="proj-desc">{{ project.description }}</p>
+            <div class="proj-tags">
+              <span v-for="tag in project.tags" :key="tag" class="proj-tag">{{ tag }}</span>
+            </div>
+            <div class="proj-links">
+              <a href="#" class="proj-link">Live →</a>
+              <a href="#" class="proj-link">GitHub →</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -82,335 +68,325 @@ const projects = [
   {
     title: 'Project Alpha',
     description:
-      'A high-throughput data pipeline processing millions of events per second. Built with distributed architecture for fault tolerance and horizontal scalability.',
+      'A high-throughput data pipeline processing millions of events per second. Distributed architecture built for fault tolerance and quiet reliability.',
     tags: ['Python', 'Kafka', 'PostgreSQL'],
     category: 'Backend',
     year: '2024',
-    role: 'Lead Engineer',
-    featured: true,
-    image: 'https://placehold.co/720x400/111820/00d4ff?text=PROJECT+SCREENSHOT&font=mono',
+    image: 'https://placehold.co/700x440/e8dcc8/a0763a?text=Project+Alpha&font=playfair-display',
   },
   {
     title: 'Project Beta',
     description:
-      'Real-time dashboard for infrastructure monitoring with WebSocket streaming, alerting, and automated runbooks.',
+      'Real-time infrastructure monitoring dashboard with WebSocket streaming. Something between a control room and a calm morning.',
     tags: ['Vue', 'Go', 'InfluxDB'],
     category: 'Fullstack',
     year: '2024',
-    role: 'Fullstack Engineer',
-    featured: true,
-    image: 'https://placehold.co/720x400/111820/7b61ff?text=PROJECT+SCREENSHOT&font=mono',
+    image: 'https://placehold.co/700x440/ddd0b8/6b5a3e?text=Project+Beta&font=playfair-display',
   },
   {
     title: 'Project Gamma',
     description:
-      'CLI toolchain for automating deployment workflows. Reduced release time from 45 minutes to under 3.',
+      'A CLI toolchain that turned a 45-minute deployment ritual into a 3-minute one. Small tool, large exhale.',
     tags: ['Rust', 'CLI', 'DevOps'],
     category: 'Systems',
     year: '2023',
-    role: 'Solo Developer',
-    featured: false,
-    image: 'https://placehold.co/720x400/0d1117/00d4ff?text=PROJECT+SCREENSHOT&font=mono',
+    image: 'https://placehold.co/700x440/e8dcc8/4a6741?text=Project+Gamma&font=playfair-display',
   },
   {
     title: 'Project Delta',
     description:
-      'Component library and design system used across 5 internal products. Accessibility-first with full dark mode support.',
+      'A component library and design system used across five internal products. Accessibility-first, built to last.',
     tags: ['Vue', 'TypeScript', 'Storybook'],
     category: 'Frontend',
     year: '2023',
-    role: 'Frontend Engineer',
-    featured: false,
-    image: 'https://placehold.co/720x400/0d1117/7b61ff?text=PROJECT+SCREENSHOT&font=mono',
+    image: 'https://placehold.co/700x440/ddd0b8/a0763a?text=Project+Delta&font=playfair-display',
   },
   {
     title: 'Project Epsilon',
     description:
-      'Authentication microservice with OAuth 2.0, JWT, and MFA. Handles 500k daily active users.',
+      'Authentication microservice with OAuth 2.0, JWT, and MFA — quietly protecting half a million daily sessions.',
     tags: ['Go', 'Redis', 'PostgreSQL'],
     category: 'Backend',
     year: '2022',
-    role: 'Backend Engineer',
-    featured: false,
-    image: 'https://placehold.co/720x400/111820/00d4ff?text=PROJECT+SCREENSHOT&font=mono',
+    image: 'https://placehold.co/700x440/e8dcc8/6b5a3e?text=Project+Epsilon&font=playfair-display',
   },
   {
     title: 'Project Zeta',
     description:
-      'E-commerce platform with headless CMS, SSR, and edge-cached storefronts. Sub-100ms TTFB worldwide.',
+      'A headless e-commerce storefront with edge caching and sub-100ms load times worldwide. Fast, but never rushed.',
     tags: ['Next.js', 'Node.js', 'Vercel'],
     category: 'Fullstack',
     year: '2022',
-    role: 'Fullstack Engineer',
-    featured: false,
-    image: 'https://placehold.co/720x400/0d1117/7b61ff?text=PROJECT+SCREENSHOT&font=mono',
+    image: 'https://placehold.co/700x440/ddd0b8/4a6741?text=Project+Zeta&font=playfair-display',
   },
 ]
 
-const filteredProjects = computed(() => {
-  if (activeFilter.value === 'All') return projects
-  return projects.filter((p) => p.category === activeFilter.value)
-})
+const filteredProjects = computed(() =>
+  activeFilter.value === 'All'
+    ? projects
+    : projects.filter((p) => p.category === activeFilter.value),
+)
 </script>
 
 <style scoped>
-.work-page {
-  padding-bottom: 6rem;
+/* ─── HEADER ─────────────────────────────────────────── */
+.work-header {
+  padding: 5rem 0 4rem;
 }
 
-.page-header {
-  padding: 5rem 0 3rem;
-  border-bottom: 1px solid var(--border);
+.header-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
+.eyebrow-line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--ink-3);
 }
-
-.page-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.page-desc {
+.eyebrow-text {
   font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-secondary);
-  max-width: 500px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.work-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.work-heading em {
+  font-style: italic;
+  color: var(--amber);
+}
+
+.work-subhead {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--ink-2);
+  font-weight: 300;
   line-height: 1.8;
+  max-width: 420px;
 }
 
-.filter-bar {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border);
+/* ─── FILTERS ─────────────────────────────────────────── */
+.filters-bar {
+  padding: 1.25rem 0;
+  background: var(--bg-warm);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
   position: sticky;
-  top: 64px;
-  background: rgba(8, 12, 16, 0.9);
-  backdrop-filter: blur(12px);
+  top: 60px;
   z-index: 10;
+  backdrop-filter: blur(8px);
 }
 
-.filters {
+.filters-inner {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.filter-btn {
-  padding: 6px 16px;
+.filter {
+  padding: 0.4rem 1.1rem;
   background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
+  border: 1px solid var(--rule);
+  border-radius: 99px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter:hover {
+  border-color: var(--ink-2);
+  color: var(--ink-2);
+  background: var(--bg-card);
+}
+.filter.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+/* ─── PROJECT LIST ────────────────────────────────────── */
+.project-list {
+  padding: 1px 0 8rem;
+}
+
+.empty {
+  padding: 5rem 0;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: all 0.15s;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  text-align: center;
 }
 
-.filter-btn:hover {
-  border-color: var(--border-accent);
-  color: var(--text-secondary);
-}
-
-.filter-btn.active {
-  background: var(--accent-dim);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.projects {
-  padding-top: 3rem;
-}
-
-.projects-grid {
+.project {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 420px;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.3s;
+}
+.project:hover {
+  background: var(--bg-warm);
 }
 
-.project-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+/* flip every other */
+.project:nth-child(even) {
+  grid-template-columns: 1fr 1.1fr;
+}
+.project:nth-child(even) .project-image {
+  order: 2;
+}
+.project:nth-child(even) .project-content {
+  order: 1;
+}
+
+.project-image {
   overflow: hidden;
-  transition:
-    border-color 0.2s,
-    transform 0.2s;
-  cursor: pointer;
 }
-
-.project-card:hover {
-  border-color: var(--border-accent);
-  transform: translateY(-3px);
-}
-
-.project-card.featured {
-  grid-column: span 2;
-}
-
-.card-image-wrap {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-}
-
-.card-image {
+.proj-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  filter: sepia(14%) brightness(1.01);
   transition:
-    transform 0.4s ease,
-    filter 0.3s;
-  filter: grayscale(20%);
+    transform 0.7s ease,
+    filter 0.5s;
+}
+.project:hover .proj-img {
+  transform: scale(1.035);
+  filter: sepia(3%);
 }
 
-.project-card:hover .card-image {
-  transform: scale(1.04);
-  filter: grayscale(0%);
-}
-
-.card-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(8, 12, 16, 0.75);
+.project-content {
+  padding: 3.5rem 4rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.25s;
+  gap: 1.1rem;
+  border-left: 1px solid var(--rule);
+}
+.project:nth-child(even) .project-content {
+  border-left: none;
+  border-right: 1px solid var(--rule);
 }
 
-.project-card:hover .card-overlay {
-  opacity: 1;
-}
-
-.overlay-links {
-  display: flex;
-  gap: 1rem;
-}
-
-.overlay-btn {
-  padding: 9px 18px;
-  background: var(--accent);
-  color: #000;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  transition: background 0.15s;
-}
-
-.overlay-btn.ghost {
-  background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-}
-
-.overlay-btn.ghost:hover {
-  background: var(--accent-dim);
-}
-
-.card-index {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: rgba(0, 212, 255, 0.5);
-  letter-spacing: 0.1em;
-}
-
-.card-body {
-  padding: 1.5rem;
-}
-
-.card-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 0.75rem;
-}
-
-.card-tag {
-  padding: 3px 8px;
-  background: rgba(123, 97, 255, 0.08);
-  border: 1px solid rgba(123, 97, 255, 0.2);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  color: #a08aff;
-}
-
-.card-title {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
-  transition: color 0.15s;
-}
-
-.project-card:hover .card-title {
-  color: var(--accent);
-}
-
-.card-desc {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  margin-bottom: 1rem;
-}
-
-.card-meta {
+.project-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
 }
-
-.card-year {
+.proj-index,
+.proj-year {
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--ink-3);
 }
 
-.card-role {
+.proj-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+.project:hover .proj-title {
+  color: var(--amber);
+}
+
+.proj-desc {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-2);
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+.proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.proj-tag {
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--accent);
-  opacity: 0.7;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 99px;
+  padding: 3px 10px;
 }
 
-.no-results {
-  text-align: center;
-  padding: 4rem;
-  color: var(--text-muted);
+.proj-links {
+  display: flex;
+  gap: 1.5rem;
+  padding-top: 0.25rem;
+}
+.proj-link {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  position: relative;
+  padding-bottom: 2px;
+}
+.proj-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--rule);
+  transition: background 0.2s;
+}
+.proj-link:hover {
+  color: var(--amber);
+}
+.proj-link:hover::after {
+  background: var(--amber);
 }
 
-@media (max-width: 1024px) {
-  .project-card.featured {
-    grid-column: span 1;
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .project,
+  .project:nth-child(even) {
+    grid-template-columns: 1fr;
   }
-}
-
-@media (max-width: 768px) {
+  .project-image,
+  .project:nth-child(even) .project-image {
+    order: 0;
+    height: 260px;
+  }
+  .project-content,
+  .project:nth-child(even) .project-content {
+    order: 0;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: 1px solid var(--rule);
+    padding: 2.5rem 1.5rem;
+  }
   .container {
     padding: 0 1.25rem;
-  }
-  .projects-grid {
-    grid-template-columns: 1fr;
   }
 }
 </style>
