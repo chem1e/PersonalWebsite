@@ -75,11 +75,11 @@
             </p>
             <p class="about-p">
               Outside of engineering, I'm a leader and community builder. As
-              <strong>VP of the Korean Culture Club</strong> and
-              <strong>Historian for the Asian American Culture Club</strong>, I directed large-scale
-              campus culture shows. I also manage digital engagement as the
-              <strong>Social Media Manager for the Archery Club</strong>, bringing creative
-              communication to everything I do.
+              <strong>Vice President of the Korean Culture Club</strong> and
+              <strong>Historian for the Asian American Culture Club</strong>, I directed prepared
+              and performed the clubs for the schools multicultural shows. I also manage digital
+              engagement as the <strong>Social Media Manager for the Archery Club</strong>, bringing
+              creative communication to everything I do.
             </p>
 
             <div class="counters">
