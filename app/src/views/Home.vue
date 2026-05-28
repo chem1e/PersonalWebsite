@@ -1,440 +1,605 @@
 <template>
-  <div class="hm">
-    <!-- HERO -->
-    <section class="hm-hero">
-      <div class="hm-hero-text">
-        <p class="hm-eyebrow">001 / PORTFOLIO</p>
-        <h1 class="hm-name">RYAN<br /><span class="hm-name-indent">CHEN</span></h1>
-        <p class="hm-role">DESIGNER — CREATIVE TECHNOLOGIST</p>
+  <div class="home">
+    <section class="hero">
+      <div class="hero-grid-bg"></div>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="hero-greeting"><span class="cursor-blink">_</span> Hello, World.</p>
+          <h1 class="hero-title">I'm <span class="gradient-text">YOUR NAME</span></h1>
+          <h2 class="hero-subtitle">Software Engineer</h2>
+          <p class="hero-desc">
+            I design and build high-performance systems, scalable architectures, and clean
+            interfaces. Based in <span class="accent-text">Your City</span> — building things that
+            matter.
+          </p>
+          <div class="hero-actions">
+            <router-link to="/work" class="btn-primary">
+              View Work <span class="btn-arrow">→</span>
+            </router-link>
+            <router-link to="/contact" class="btn-ghost"> Get in Touch </router-link>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="avatar-frame">
+            <img
+              src="https://placehold.co/400x500/0d1117/00d4ff?text=YOUR+PHOTO&font=mono"
+              alt="Profile photo placeholder"
+              class="avatar-img"
+            />
+            <div class="avatar-glow"></div>
+            <div class="avatar-corner tl"></div>
+            <div class="avatar-corner tr"></div>
+            <div class="avatar-corner bl"></div>
+            <div class="avatar-corner br"></div>
+          </div>
+          <div class="floating-badge badge-1">
+            <span class="badge-icon">⚡</span>
+            <span>5+ years exp.</span>
+          </div>
+          <div class="floating-badge badge-2">
+            <span class="badge-icon">🔧</span>
+            <span>20+ projects</span>
+          </div>
+        </div>
       </div>
-      <div class="hm-hero-photo">
-        <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=85"
-          alt="Ryan Chen"
-          class="hm-hero-img"
-        />
-        <div class="hm-badge">
-          <span>AVAILABLE</span>
-          <span>FOR WORK</span>
+
+      <div class="hero-scroll-hint">
+        <span>scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="container">
+        <p class="section-label">// about me</p>
+        <div class="about-grid">
+          <div class="about-text">
+            <h3 class="about-title">
+              Engineer by trade,<br /><span class="gradient-text">problem solver</span> by nature.
+            </h3>
+            <p class="about-body">
+              I specialize in building robust backend systems and modern frontend experiences. My
+              work spans distributed systems, API design, cloud infrastructure, and product
+              engineering.
+            </p>
+            <p class="about-body">
+              When I'm not shipping code, I'm exploring new frameworks, contributing to open source,
+              or writing about engineering challenges I've faced in production.
+            </p>
+            <div class="about-stats">
+              <div class="stat-item" v-for="stat in stats" :key="stat.label">
+                <span class="stat-value">{{ stat.value }}</span>
+                <span class="stat-label">{{ stat.label }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-image-col">
+            <div class="about-img-frame">
+              <img
+                src="https://placehold.co/480x380/111820/7b61ff?text=IMAGE+2&font=mono"
+                alt="About image placeholder"
+                class="about-img"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- MARQUEE -->
-    <div class="hm-marquee" aria-hidden="true">
-      <div class="hm-marquee-a">
-        BRAND STRATEGY <em>·</em> CREATIVE TECH <em>·</em> ILLUSTRATION <em>·</em> MOTION
-        <em>·</em> PRODUCT DESIGN <em>·</em> UX RESEARCH <em>·</em>&nbsp;
-      </div>
-      <div class="hm-marquee-a" aria-hidden="true">
-        BRAND STRATEGY <em>·</em> CREATIVE TECH <em>·</em> ILLUSTRATION <em>·</em> MOTION
-        <em>·</em> PRODUCT DESIGN <em>·</em> UX RESEARCH <em>·</em>&nbsp;
-      </div>
-    </div>
-
-    <!-- ABOUT -->
-    <section class="hm-about rc-reveal">
-      <p class="hm-section-label">ABOUT</p>
-      <div class="hm-about-body">
-        <p class="hm-about-copy">
-          I'm a designer and creative technologist passionate about crafting meaningful digital
-          experiences. I blend design thinking with technical execution to build products that
-          resonate with people.
-        </p>
-        <router-link to="/works" class="hm-cta">VIEW MY WORKS →</router-link>
-      </div>
-    </section>
-
-    <!-- SELECTED WORKS -->
-    <section class="hm-sel">
-      <div class="hm-sel-head">
-        <p class="hm-section-label">SELECTED WORKS</p>
-        <router-link to="/works" class="hm-see-all">SEE ALL →</router-link>
-      </div>
-      <ul class="hm-list">
-        <li
-          v-for="(w, i) in featured"
-          :key="i"
-          class="hm-list-item rc-reveal"
-          @click="$router.push('/works')"
-        >
-          <span class="hm-item-num">{{ String(i + 1).padStart(2, '0') }}</span>
-          <div class="hm-item-img">
-            <img :src="w.img" :alt="w.title" />
+    <section class="skills">
+      <div class="container">
+        <p class="section-label">// tech stack</p>
+        <h3 class="skills-title">Tools I work with</h3>
+        <div class="skills-grid">
+          <div class="skill-category" v-for="cat in skillCategories" :key="cat.name">
+            <p class="skill-cat-label">{{ cat.name }}</p>
+            <div class="skill-tags">
+              <span class="skill-tag" v-for="skill in cat.skills" :key="skill">{{ skill }}</span>
+            </div>
           </div>
-          <div class="hm-item-text">
-            <strong class="hm-item-title">{{ w.title }}</strong>
-            <span class="hm-item-tag">{{ w.tag }}</span>
-          </div>
-          <span class="hm-item-arrow">→</span>
-        </li>
-      </ul>
+        </div>
+      </div>
     </section>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Home',
-  data() {
-    return {
-      featured: [
-        {
-          title: 'Bento — Meals, Matched',
-          tag: 'PRODUCT · 2025',
-          img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80',
-        },
-        {
-          title: 'YHack 2026',
-          tag: 'CREATIVE TECH · 2026',
-          img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80',
-        },
-        {
-          title: 'ThinkPad X1 Carbon',
-          tag: 'BRAND STRATEGY · 2026',
-          img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80',
-        },
-      ],
-    }
+<script setup>
+const stats = [
+  { value: '5+', label: 'Years Experience' },
+  { value: '20+', label: 'Projects Shipped' },
+  { value: '3', label: 'Companies' },
+  { value: '∞', label: 'Coffee Consumed' },
+]
+
+const skillCategories = [
+  {
+    name: 'Languages',
+    skills: ['Python', 'TypeScript', 'Go', 'Rust', 'SQL'],
   },
-  mounted() {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e, i) => {
-          if (e.isIntersecting) setTimeout(() => e.target.classList.add('rc-visible'), i * 90)
-        })
-      },
-      { threshold: 0.08 },
-    )
-    this.$el.querySelectorAll('.rc-reveal').forEach((el) => io.observe(el))
+  {
+    name: 'Frontend',
+    skills: ['Vue', 'React', 'Next.js', 'CSS / Tailwind'],
   },
-}
+  {
+    name: 'Backend',
+    skills: ['Node.js', 'FastAPI', 'PostgreSQL', 'Redis', 'GraphQL'],
+  },
+  {
+    name: 'Infrastructure',
+    skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD'],
+  },
+]
 </script>
 
 <style scoped>
-/* All class names are prefixed hm- (home) */
-
-.hm {
-  width: 100%;
+.home {
+  overflow-x: hidden;
 }
 
-/* ── HERO ─────────────────────────────────────────────────── */
-.hm-hero {
-  display: grid;
-  grid-template-columns: 1fr 38%;
-  border-bottom: 1px solid var(--rc-rule);
-}
-
-.hm-hero-text {
-  padding-top: clamp(48px, 7vw, 96px);
-  padding-bottom: clamp(48px, 7vw, 80px);
-  padding-left: var(--rc-pad);
-  padding-right: var(--rc-pad);
-  border-right: 1px solid var(--rc-rule);
-  display: flex;
-  flex-direction: column;
-}
-
-.hm-eyebrow {
-  font-family: var(--rc-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--rc-muted);
-  margin-bottom: auto;
-}
-
-.hm-name {
-  font-family: var(--rc-display);
-  font-size: clamp(88px, 13vw, 188px);
-  font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: 0.01em;
-  color: var(--rc-ink);
-  margin-top: 28px;
-  margin-bottom: 24px;
-}
-
-.hm-name-indent {
-  display: inline-block;
-  padding-left: 0.15em;
-}
-
-.hm-role {
-  font-family: var(--rc-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  color: var(--rc-muted);
-}
-
-/* Photo column — stretches to match text height exactly */
-.hm-hero-photo {
+.hero {
   position: relative;
-}
-
-.hm-hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 15%;
-  filter: saturate(0.82);
-}
-
-.hm-badge {
-  position: absolute;
-  bottom: 22px;
-  right: 22px;
-  background-color: var(--rc-paper);
-  border: 1px solid var(--rc-ink);
-  padding: 10px 16px;
+  min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  font-family: var(--rc-mono);
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  line-height: 1.8;
-}
-
-/* ── MARQUEE ──────────────────────────────────────────────── */
-/*
-  Two identical divs, both animating from 0 to -100%.
-  Second one starts at +100% so the two fill the track
-  seamlessly — no JS, no gaps, no jumps.
-*/
-.hm-marquee {
+  justify-content: center;
   overflow: hidden;
-  display: flex;
-  background-color: var(--rc-ink);
-  border-bottom: 1px solid var(--rc-rule);
 }
 
-.hm-marquee-a {
-  flex-shrink: 0;
-  white-space: nowrap;
-  padding-top: 14px;
-  padding-bottom: 14px;
-  font-family: var(--rc-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  color: var(--rc-paper);
-  animation: hm-scroll 26s linear infinite;
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
 }
 
-.hm-marquee-a:nth-child(2) {
-  animation-delay: -13s;
-}
-
-.hm-marquee-a em {
-  font-style: normal;
-  color: var(--rc-red);
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-@keyframes hm-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-/* ── ABOUT ────────────────────────────────────────────────── */
-.hm-about {
+.hero-inner {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  padding-top: clamp(52px, 6vw, 80px);
-  padding-bottom: clamp(52px, 6vw, 80px);
-  padding-left: var(--rc-pad);
-  padding-right: var(--rc-pad);
-  border-bottom: 1px solid var(--rc-rule);
-  align-items: start;
+  grid-template-columns: 1fr 420px;
+  gap: 4rem;
+  align-items: center;
+  padding: 4rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.hm-section-label {
-  font-family: var(--rc-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: var(--rc-muted);
-  padding-top: 5px;
+.hero-greeting {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
 }
 
-.hm-about-body {
-  max-width: 560px;
+.cursor-blink {
+  animation: blink 1s step-end infinite;
 }
 
-.hm-about-copy {
-  font-size: clamp(17px, 2vw, 21px);
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--rc-ink);
-  margin-bottom: 36px;
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
-.hm-cta {
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.08em;
+}
+
+.hero-desc {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+}
+
+.accent-text {
+  color: var(--accent);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--rc-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: var(--rc-ink);
-  border-bottom: 1px solid var(--rc-ink);
-  padding-bottom: 3px;
-  transition:
-    gap 0.22s ease,
-    color 0.18s ease,
-    border-color 0.18s ease;
+  padding: 0.75rem 1.75rem;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: none;
+  transition: all 0.2s;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
 }
 
-.hm-cta:hover {
-  gap: 16px;
-  color: var(--rc-red);
-  border-bottom-color: var(--rc-red);
+.btn-primary:hover {
+  background: #33ddff;
+  transform: translateY(-2px);
 }
 
-/* ── SELECTED WORKS ───────────────────────────────────────── */
-.hm-sel {
-  padding-top: clamp(52px, 6vw, 80px);
-  padding-bottom: clamp(64px, 8vw, 100px);
-  padding-left: var(--rc-pad);
-  padding-right: var(--rc-pad);
+.btn-arrow {
+  transition: transform 0.2s;
 }
 
-.hm-sel-head {
+.btn-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.75rem;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-accent);
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.hero-visual {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 36px;
+  justify-content: center;
 }
 
-.hm-see-all {
-  font-family: var(--rc-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: var(--rc-ink);
-  transition:
-    color 0.18s ease,
-    letter-spacing 0.22s ease;
+.avatar-frame {
+  position: relative;
+  width: 340px;
+  height: 420px;
 }
 
-.hm-see-all:hover {
-  color: var(--rc-red);
-  letter-spacing: 0.2em;
-}
-
-.hm-list {
-  list-style: none;
-  border-top: 1px solid var(--rc-rule);
-}
-
-.hm-list-item {
-  display: grid;
-  grid-template-columns: 36px 96px 1fr 20px;
-  align-items: center;
-  gap: 24px;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: -10px;
-  margin-right: -10px;
-  border-bottom: 1px solid var(--rc-rule);
-  cursor: pointer;
-  transition: background-color 0.18s ease;
-}
-
-.hm-list-item:hover {
-  background-color: var(--rc-dim);
-}
-
-.hm-item-num {
-  font-family: var(--rc-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: var(--rc-muted);
-}
-
-.hm-item-img {
-  width: 96px;
-  height: 64px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.hm-item-img img {
+.avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  filter: grayscale(20%) contrast(1.05);
+  transition: filter 0.3s;
 }
 
-.hm-list-item:hover .hm-item-img img {
-  transform: scale(1.07);
+.avatar-frame:hover .avatar-img {
+  filter: grayscale(0%) contrast(1.1);
 }
 
-.hm-item-text {
+.avatar-glow {
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  z-index: -1;
+  opacity: 0.4;
+}
+
+.avatar-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.avatar-corner.tl {
+  top: -4px;
+  left: -4px;
+  border-width: 2px 0 0 2px;
+}
+.avatar-corner.tr {
+  top: -4px;
+  right: -4px;
+  border-width: 2px 2px 0 0;
+}
+.avatar-corner.bl {
+  bottom: -4px;
+  left: -4px;
+  border-width: 0 0 2px 2px;
+}
+.avatar-corner.br {
+  bottom: -4px;
+  right: -4px;
+  border-width: 0 2px 2px 0;
+}
+
+.floating-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.badge-1 {
+  bottom: 40px;
+  left: -60px;
+}
+.badge-2 {
+  top: 60px;
+  right: -50px;
+}
+
+.badge-icon {
+  font-size: 14px;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--text-muted);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  animation: scanline 2s linear infinite;
+}
+
+@keyframes scanline {
+  to {
+    left: 100%;
+  }
+}
+
+.about {
+  padding: 6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.about-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+.about-body {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+
+.about-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.stat-item {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
-.hm-item-title {
-  font-family: var(--rc-display);
-  font-size: clamp(22px, 2.4vw, 32px);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1;
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);
 }
 
-.hm-item-tag {
-  font-family: var(--rc-mono);
-  font-size: 9px;
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
   letter-spacing: 0.1em;
-  color: var(--rc-muted);
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-.hm-item-arrow {
-  font-size: 15px;
-  color: var(--rc-muted);
-  justify-self: end;
-  transition:
-    transform 0.2s ease,
-    color 0.18s ease;
+.about-img-frame {
+  position: relative;
+  border: 1px solid var(--border-accent);
+  overflow: hidden;
 }
 
-.hm-list-item:hover .hm-item-arrow {
-  transform: translateX(4px);
-  color: var(--rc-red);
+.about-img-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 1;
 }
 
-/* ── MOBILE ───────────────────────────────────────────────── */
-@media (max-width: 760px) {
-  .hm-hero {
+.about-img {
+  width: 100%;
+  display: block;
+  filter: grayscale(15%);
+  transition: filter 0.3s;
+}
+
+.about-img:hover {
+  filter: grayscale(0%);
+}
+
+.skills {
+  padding: 5rem 0 7rem;
+  border-top: 1px solid var(--border);
+}
+
+.skills-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  margin-top: 0.5rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.skill-category {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.skill-category:hover {
+  border-color: var(--border-accent);
+}
+
+.skill-cat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  padding: 5px 12px;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  transition: all 0.15s;
+}
+
+.skill-tag:hover {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+@media (max-width: 1024px) {
+  .hero-inner {
     grid-template-columns: 1fr;
+    text-align: center;
   }
-  .hm-hero-text {
-    border-right: none;
-    border-bottom: 1px solid var(--rc-rule);
+  .hero-desc {
+    margin: 0 auto 2.5rem;
   }
-  .hm-hero-photo {
+  .hero-actions {
+    justify-content: center;
+  }
+  .hero-visual {
     display: none;
   }
-  .hm-about {
+  .about-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
   }
-  .hm-list-item {
-    grid-template-columns: 28px 68px 1fr 16px;
-    gap: 14px;
+  .about-image-col {
+    display: none;
   }
-  .hm-item-img {
-    width: 68px;
-    height: 46px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+  .hero-inner {
+    padding: 3rem 1.25rem;
+  }
+  .about-stats {
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .hero-scroll-hint {
+    left: 1.25rem;
   }
 }
 </style>

@@ -1,275 +1,519 @@
 <template>
-  <div class="ct">
-    <div class="ct-layout">
-      <!-- LEFT -->
-      <div class="ct-left">
-        <p class="ct-label">003 / CONTACT</p>
-
-        <h1 class="ct-title">LET'S<br />TALK</h1>
-
-        <p class="ct-tagline">
-          Let's create something meaningful together. Always passionate about design and community.
+  <div class="contact-page">
+    <div class="page-header">
+      <div class="container">
+        <p class="section-label">// get in touch</p>
+        <h1 class="page-title">
+          Let's Build<br /><span class="gradient-text">Something Together</span>
+        </h1>
+        <p class="page-desc">
+          Whether it's a project, a role, or just a conversation — my inbox is open.
         </p>
+      </div>
+    </div>
 
-        <div class="ct-rows">
-          <div class="ct-row">
-            <span class="ct-row-label ct-label">EMAIL</span>
-            <a :href="'mailto:' + info.email" class="ct-link">{{ info.email }}</a>
-          </div>
-
-          <div class="ct-divider"></div>
-
-          <div class="ct-row">
-            <span class="ct-row-label ct-label">SOCIALS</span>
-            <div class="ct-link-group">
-              <a
-                v-for="s in info.socials"
-                :key="s.name"
-                :href="s.url"
-                target="_blank"
-                class="ct-link"
-                >{{ s.name }} →</a
-              >
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="form-col">
+            <div class="form-header">
+              <span class="form-tag">// send a message</span>
             </div>
+
+            <form class="contact-form" @submit.prevent="handleSubmit">
+              <div class="form-group">
+                <label class="form-label">Name</label>
+                <input
+                  v-model="form.name"
+                  type="text"
+                  class="form-input"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input
+                  v-model="form.email"
+                  type="email"
+                  class="form-input"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Subject</label>
+                <input
+                  v-model="form.subject"
+                  type="text"
+                  class="form-input"
+                  placeholder="What's this about?"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Message</label>
+                <textarea
+                  v-model="form.message"
+                  class="form-textarea"
+                  placeholder="Tell me about your project, idea, or opportunity..."
+                  rows="6"
+                  required
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="submit-btn"
+                :class="{ loading: isLoading, sent: isSent }"
+              >
+                <span v-if="!isSent && !isLoading"
+                  >Send Message <span class="btn-arrow">→</span></span
+                >
+                <span v-else-if="isLoading">Transmitting...</span>
+                <span v-else>Message Sent ✓</span>
+              </button>
+
+              <p class="form-note">
+                * Connect to your own form handler (e.g. Formspree, EmailJS, or your backend).
+              </p>
+            </form>
           </div>
 
-          <div class="ct-divider"></div>
+          <div class="info-col">
+            <div class="info-card">
+              <p class="info-section-label">// direct contact</p>
+              <div class="contact-items">
+                <div class="contact-item" v-for="item in contactItems" :key="item.label">
+                  <span class="contact-icon">{{ item.icon }}</span>
+                  <div>
+                    <p class="contact-item-label">{{ item.label }}</p>
+                    <a :href="item.href" class="contact-item-value">{{ item.value }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <div class="ct-row" v-if="info.links.length">
-            <span class="ct-row-label ct-label">LINKS</span>
-            <div class="ct-link-group">
-              <a v-for="l in info.links" :key="l.name" :href="l.url" target="_blank" class="ct-link"
-                >{{ l.name }} →</a
-              >
+            <div class="info-card">
+              <p class="info-section-label">// socials</p>
+              <div class="social-links">
+                <a
+                  v-for="social in socials"
+                  :key="social.name"
+                  :href="social.href"
+                  class="social-link"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="social-name">{{ social.name }}</span>
+                  <span class="social-handle">{{ social.handle }}</span>
+                  <span class="social-arrow">↗</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="info-card availability-card">
+              <p class="info-section-label">// current status</p>
+              <div class="availability">
+                <div class="avail-dot"></div>
+                <div>
+                  <p class="avail-status">Open to opportunities</p>
+                  <p class="avail-detail">
+                    Available for full-time roles, contract work, and interesting projects.
+                  </p>
+                </div>
+              </div>
+              <p class="location-tag">📍 Your City · UTC±0</p>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- RIGHT -->
-      <div class="ct-right">
-        <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=85"
-          alt="Ryan Chen"
-          class="ct-photo"
-        />
-        <div class="ct-stamp">SAY HELLO :)</div>
-      </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="ct-footer">
-      <span class="ct-label ct-muted">© {{ year }} RYAN CHEN — ALL RIGHTS RESERVED</span>
-      <span class="ct-label ct-muted">BASED IN NEW HAVEN & NYC</span>
-    </footer>
+    </section>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Contact',
-  data() {
-    return {
-      year: new Date().getFullYear(),
-      info: {
-        email: 'ryan.chen@yale.edu',
-        socials: [
-          { name: 'Instagram', url: 'https://instagram.com/' },
-          { name: 'LinkedIn', url: 'https://linkedin.com/in/' },
-          { name: 'Twitter / X', url: 'https://x.com/' },
-        ],
-        links: [
-          { name: 'GitHub', url: 'https://github.com/' },
-          { name: 'Read.cv', url: 'https://read.cv/' },
-        ],
-      },
-    }
-  },
+<script setup>
+import { ref, reactive } from 'vue'
+
+const form = reactive({ name: '', email: '', subject: '', message: '' })
+const isLoading = ref(false)
+const isSent = ref(false)
+
+function handleSubmit() {
+  isLoading.value = true
+  // TODO: Replace with Formspree, EmailJS, or your own backend
+  setTimeout(() => {
+    isLoading.value = false
+    isSent.value = true
+    setTimeout(() => {
+      isSent.value = false
+      form.name = ''
+      form.email = ''
+      form.subject = ''
+      form.message = ''
+    }, 3000)
+  }, 1500)
 }
+
+const contactItems = [
+  { icon: '✉', label: 'Email', value: 'you@yourdomain.com', href: 'mailto:you@yourdomain.com' },
+  { icon: '📍', label: 'Location', value: 'Your City, Country', href: '#' },
+]
+
+const socials = [
+  { name: 'GitHub', handle: '@yourusername', href: 'https://github.com/yourusername' },
+  { name: 'LinkedIn', handle: 'in/yourprofile', href: 'https://linkedin.com/in/yourprofile' },
+  { name: 'X / Twitter', handle: '@yourhandle', href: 'https://x.com/yourhandle' },
+]
 </script>
 
 <style scoped>
-/* ── Root ─────────────────────────────────────────────────── */
-.ct {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - var(--rc-nav));
+.contact-page {
+  padding-bottom: 6rem;
 }
 
-/* ── Shared atoms ─────────────────────────────────────────── */
-.ct-label {
-  font-family: var(--rc-mono);
+.page-header {
+  padding: 5rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.page-desc {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  max-width: 500px;
+  line-height: 1.8;
+}
+
+.contact-section {
+  padding-top: 4rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 4rem;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+}
+
+.form-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.12em;
-}
-.ct-muted {
-  color: var(--rc-muted);
-}
-
-/* ── Split layout ─────────────────────────────────────────── */
-.ct-layout {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 42%;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-/* ── LEFT ─────────────────────────────────────────────────── */
-.ct-left {
-  padding-top: clamp(44px, 6vw, 80px);
-  padding-bottom: clamp(44px, 6vw, 64px);
-  padding-left: var(--rc-pad);
-  padding-right: var(--rc-pad);
-  border-right: 1px solid var(--rc-rule);
-  display: flex;
-  flex-direction: column;
-}
-
-.ct-label {
-  color: var(--rc-muted);
-  margin-bottom: 28px;
-}
-
-.ct-title {
-  font-family: var(--rc-display);
-  font-size: clamp(72px, 10vw, 136px);
-  font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: 0.01em;
-  color: var(--rc-ink);
-  margin-bottom: 28px;
-}
-
-.ct-tagline {
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--rc-muted);
-  max-width: 340px;
-  margin-bottom: 52px;
-}
-
-/* ── Detail rows ──────────────────────────────────────────── */
-.ct-rows {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.ct-divider {
-  height: 1px;
-  background-color: var(--rc-rule);
-}
-
-.ct-row {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  align-items: start;
-  gap: 16px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.ct-row-label {
-  padding-top: 4px;
-  color: var(--rc-muted);
-}
-
-.ct-link {
-  display: inline-block;
-  font-family: var(--rc-display);
-  font-size: clamp(18px, 2vw, 26px);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: var(--rc-ink);
-  position: relative;
-  transition: color 0.18s ease;
-}
-
-.ct-link::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: var(--rc-red);
-  transition: width 0.28s ease;
-}
-
-.ct-link:hover {
-  color: var(--rc-red);
-}
-
-.ct-link:hover::after {
+.form-input,
+.form-textarea {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 12px 16px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+  resize: none;
+  line-height: 1.6;
   width: 100%;
 }
 
-.ct-link-group {
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.875rem 2rem;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  transition: all 0.2s;
+  align-self: flex-start;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
+  min-width: 200px;
+}
+
+.submit-btn:hover:not(.loading):not(.sent) {
+  background: #33ddff;
+  transform: translateY(-2px);
+}
+
+.submit-btn.loading {
+  background: var(--text-muted);
+  cursor: not-allowed;
+}
+.submit-btn.sent {
+  background: #00e676;
+  cursor: default;
+}
+
+.btn-arrow {
+  transition: transform 0.2s;
+}
+.submit-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.form-note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-top: -0.5rem;
+}
+
+.info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.info-card:hover {
+  border-color: var(--border-accent);
+}
+
+.info-section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+.contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.contact-icon {
+  font-size: 16px;
+  width: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.contact-item-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.contact-item-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: color 0.15s;
+}
+
+.contact-item-value:hover {
+  color: var(--accent);
+}
+
+.social-links {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-/* ── RIGHT (photo) ────────────────────────────────────────── */
-.ct-right {
-  position: relative;
-  overflow: hidden;
-}
-
-.ct-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 15%;
-  min-height: 480px;
-  filter: saturate(0.8);
-}
-
-.ct-stamp {
-  position: absolute;
-  bottom: 26px;
-  right: 26px;
-  background-color: var(--rc-paper);
-  border: 1px solid var(--rc-ink);
-  padding: 10px 18px;
-  font-family: var(--rc-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  transform: rotate(-2deg);
-}
-
-/* ── FOOTER ───────────────────────────────────────────────── */
-.ct-footer {
+.social-link {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  padding-left: var(--rc-pad);
-  padding-right: var(--rc-pad);
-  border-top: 1px solid var(--rc-rule);
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  transition: all 0.15s;
 }
 
-/* ── MOBILE ───────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .ct-layout {
+.social-link:hover {
+  background: var(--accent-dim);
+  border-color: var(--border-accent);
+}
+
+.social-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  width: 100px;
+}
+
+.social-handle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.social-arrow {
+  font-size: 12px;
+  color: var(--text-muted);
+  transition:
+    color 0.15s,
+    transform 0.15s;
+}
+
+.social-link:hover .social-arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+.availability-card {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(0, 212, 255, 0.04) 100%);
+  border-color: var(--border-accent);
+}
+
+.availability {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.avail-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00e676;
+  box-shadow: 0 0 10px #00e676;
+  flex-shrink: 0;
+  margin-top: 5px;
+  animation: avail-pulse 2s infinite;
+}
+
+@keyframes avail-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 10px #00e676;
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 4px #00e676;
+  }
+}
+
+.avail-status {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #00e676;
+  margin-bottom: 4px;
+}
+
+.avail-detail {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.location-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 1024px) {
+  .contact-grid {
     grid-template-columns: 1fr;
   }
-  .ct-left {
-    border-right: none;
+  .info-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
-  .ct-right {
-    display: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
   }
-  .ct-row {
-    grid-template-columns: 80px 1fr;
+  .submit-btn {
+    align-self: stretch;
   }
-  .ct-footer {
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
+  .info-col {
+    grid-template-columns: 1fr;
   }
 }
 </style>
