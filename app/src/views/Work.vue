@@ -72,7 +72,7 @@ const projects = [
     tags: ['CAD', 'Prototyping', 'Arduino'],
     category: 'CAD',
     year: '2025',
-    image: 'https://placehold.co/700x440/e8dcc8/a0763a?text=Project+Alpha&font=playfair-display',
+    image: '/Crane1.png',
   },
   {
     title: 'Model Rocket',
@@ -81,7 +81,7 @@ const projects = [
     tags: ['CAD', 'CFD', 'Prototyping'],
     category: 'CAD',
     year: '2026',
-    image: 'https://placehold.co/700x440/ddd0b8/6b5a3e?text=Project+Beta&font=playfair-display',
+    image: '/Rocket1.png',
   },
   {
     title: 'Print in place Butterfly Knife',
@@ -99,7 +99,7 @@ const projects = [
     tags: ['CAD'],
     category: 'CAD',
     year: '2025',
-    image: 'https://placehold.co/700x440/ddd0b8/a0763a?text=Project+Delta&font=playfair-display',
+    image: '/Plane2.png',
   },
   {
     title: 'Personal Website',
