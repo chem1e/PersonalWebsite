@@ -121,7 +121,7 @@
               <span class="avail-status">Open to opportunities</span>
             </div>
             <p class="avail-types">Full-time · Contract · Side projects</p>
-            <p class="avail-location">📍 Your City · UTC±0</p>
+            <p class="avail-location">📍 Staten Island, New York · UTC±0</p>
           </div>
         </aside>
       </div>
@@ -149,13 +149,16 @@ function handleSubmit() {
 }
 
 const contactItems = [
-  { label: 'Email', value: 'you@yourdomain.com', href: 'mailto:you@yourdomain.com' },
-  { label: 'Location', value: 'Your City, Country', href: '#' },
+  { label: 'Email', value: 'ryanchen579@gmail.com', href: 'mailto:ryanchen579@gmail.com' },
+  { label: 'Location', value: 'Staten Island, New York', href: '#' },
 ]
 const socials = [
-  { name: 'GitHub', handle: '@yourusername', href: 'https://github.com/yourusername' },
-  { name: 'LinkedIn', handle: 'in/yourprofile', href: 'https://linkedin.com/in/yourprofile' },
-  { name: 'X/Twitter', handle: '@yourhandle', href: 'https://x.com/yourhandle' },
+  { name: 'GitHub', handle: '@chem1e', href: 'https://github.com/chem1e' },
+  {
+    name: 'LinkedIn',
+    handle: 'in/ryan-chen-4b6000275',
+    href: 'https://www.linkedin.com/in/ryan-chen-4b6000275/',
+  },
 ]
 </script>
 
