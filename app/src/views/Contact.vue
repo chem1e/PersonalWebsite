@@ -76,7 +76,7 @@
                 <span v-else-if="isLoading">Sending...</span>
                 <span v-else>Sent ✓ Thank you</span>
               </button>
-              <p class="form-note">* Wire up to Formspree or your backend</p>
+              <p class="form-note"></p>
             </div>
           </form>
         </div>
