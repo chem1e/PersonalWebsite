@@ -8,7 +8,7 @@
           <span class="eyebrow-text">Selected work</span>
         </div>
         <h1 class="work-heading">Things I've<br /><em>made & built</em></h1>
-        <p class="work-subhead">Each project is a small story about a problem worth solving.</p>
+        <p class="work-subhead">Each project is a small story about me.</p>
       </div>
     </section>
 
@@ -61,62 +61,53 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const filterTags = ['All', 'Backend', 'Frontend', 'Fullstack', 'Systems']
+const filterTags = ['All', 'CAD', 'Web Development']
 const activeFilter = ref('All')
 
 const projects = [
   {
-    title: 'Project Alpha',
+    title: 'Magno Crane',
     description:
-      'A high-throughput data pipeline processing millions of events per second. Distributed architecture built for fault tolerance and quiet reliability.',
-    tags: ['Python', 'Kafka', 'PostgreSQL'],
-    category: 'Backend',
-    year: '2024',
+      'Designed and built a model magnetic crane capable of lifting and transporting metal objects using an electromagnet. The project involved CAD design, prototyping, testing, and iterative improvements to maximize lifting strength, stability, and efficiency while applying engineering and physics principles.',
+    tags: ['CAD', 'Prototyping', 'Arduino'],
+    category: 'CAD',
+    year: '2025',
     image: 'https://placehold.co/700x440/e8dcc8/a0763a?text=Project+Alpha&font=playfair-display',
   },
   {
-    title: 'Project Beta',
+    title: 'Model Rocket',
     description:
-      'Real-time infrastructure monitoring dashboard with WebSocket streaming. Something between a control room and a calm morning.',
-    tags: ['Vue', 'Go', 'InfluxDB'],
-    category: 'Fullstack',
-    year: '2024',
+      'Developed a model rocket themed around the Star Wars ship the Venator. The 3d model was then tested in CFD and predictions were made on the distance it would fly and the location it would land.',
+    tags: ['CAD', 'CFD', 'Prototyping'],
+    category: 'CAD',
+    year: '2026',
     image: 'https://placehold.co/700x440/ddd0b8/6b5a3e?text=Project+Beta&font=playfair-display',
   },
   {
-    title: 'Project Gamma',
+    title: 'Print in place Butterfly Knife',
     description:
-      'A CLI toolchain that turned a 45-minute deployment ritual into a 3-minute one. Small tool, large exhale.',
-    tags: ['Rust', 'CLI', 'DevOps'],
-    category: 'Systems',
-    year: '2023',
+      'A classic toy beloved by many, my first few attempts on 3d printing it required many parts and a complex assembly. I thought to myself, what if I made it pre assembled and printed in place. Thats how this project came to life.',
+    tags: ['CAD', 'Prototype'],
+    category: 'CAD',
+    year: '2026',
     image: 'https://placehold.co/700x440/e8dcc8/4a6741?text=Project+Gamma&font=playfair-display',
   },
   {
-    title: 'Project Delta',
+    title: 'Model Plane',
     description:
-      'A component library and design system used across five internal products. Accessibility-first, built to last.',
-    tags: ['Vue', 'TypeScript', 'Storybook'],
-    category: 'Frontend',
-    year: '2023',
+      'Ever since Covid I have been unable to travel for many years, 2025 was my first trip in over 6 years. The memories of flying were everlasting. I 3D modeled the plane so that I can always look back on those memories. ',
+    tags: ['CAD'],
+    category: 'CAD',
+    year: '2025',
     image: 'https://placehold.co/700x440/ddd0b8/a0763a?text=Project+Delta&font=playfair-display',
   },
   {
-    title: 'Project Epsilon',
+    title: 'Personal Website',
     description:
-      'Authentication microservice with OAuth 2.0, JWT, and MFA — quietly protecting half a million daily sessions.',
-    tags: ['Go', 'Redis', 'PostgreSQL'],
-    category: 'Backend',
-    year: '2022',
-    image: 'https://placehold.co/700x440/e8dcc8/6b5a3e?text=Project+Epsilon&font=playfair-display',
-  },
-  {
-    title: 'Project Zeta',
-    description:
-      'A headless e-commerce storefront with edge caching and sub-100ms load times worldwide. Fast, but never rushed.',
-    tags: ['Next.js', 'Node.js', 'Vercel'],
-    category: 'Fullstack',
-    year: '2022',
+      'This is what you are looking at right now, a display of my accomplishments and achievements.',
+    tags: ['Vue.js', 'Node.js', 'Tailwind CSS'],
+    category: 'Web Development',
+    year: '2026',
     image: 'https://placehold.co/700x440/ddd0b8/4a6741?text=Project+Zeta&font=playfair-display',
   },
 ]

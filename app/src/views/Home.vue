@@ -6,10 +6,7 @@
         <div class="hero-top">
           <span class="greeting">✦ Engineer and Innovater</span>
           <div class="hero-photo-mobile">
-            <img
-              src="https://placehold.co/320x400/e8dcc8/a0763a?text=Your+Photo&font=playfair-display"
-              alt="Your photo"
-            />
+            <img src="/pfp.png" alt="Your photo" />
           </div>
         </div>
 
@@ -30,12 +27,8 @@
 
           <div class="hero-right">
             <div class="hero-photo-wrap">
-              <img
-                src="https://placehold.co/380x480/e8dcc8/a0763a?text=Your+Photo&font=playfair-display"
-                alt="Your photo"
-                class="hero-photo"
-              />
-              <span class="photo-tag">📍 Your City</span>
+              <img src="/pfp.png" alt="Your photo" class="hero-photo" />
+              <span class="photo-tag">📍 Staten Island</span>
             </div>
           </div>
         </div>
@@ -57,11 +50,7 @@
 
         <div class="about-layout">
           <div class="about-image-side">
-            <img
-              src="https://placehold.co/360x440/ddd0b8/6b5a3e?text=Image+2&font=playfair-display"
-              alt="About photo"
-              class="about-photo"
-            />
+            <img src="/me.png" alt="About photo" class="about-photo" />
           </div>
 
           <div class="about-text-side">
@@ -99,9 +88,9 @@
         <div class="skills-intro">
           <div class="about-eyebrow">
             <span class="eyebrow-line"></span>
-            <span class="eyebrow-text">Craft</span>
+            <span class="eyebrow-text">Skills</span>
           </div>
-          <h2 class="skills-heading">Tools of the trade</h2>
+          <h2 class="skills-heading">A small view into my skills</h2>
         </div>
 
         <div class="skills-body">
@@ -119,15 +108,21 @@
 
 <script setup>
 const stats = [
-  { value: '5+', label: 'Years experience' },
-  { value: '20+', label: 'Projects shipped' },
-  { value: '3', label: 'Companies' },
+  { value: '5+', label: 'Projects' },
+  { value: '3+', label: 'Years of CAD Experience' },
+  { value: '1+', label: 'Internships' },
 ]
 const skillCategories = [
-  { name: 'Languages', skills: ['Python', 'TypeScript', 'Go', 'Rust', 'SQL'] },
-  { name: 'Frontend', skills: ['Vue', 'React', 'Next.js', 'Tailwind CSS'] },
-  { name: 'Backend', skills: ['Node.js', 'FastAPI', 'PostgreSQL', 'Redis'] },
-  { name: 'Infrastructure', skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform'] },
+  { name: 'CAD', skills: ['AutoCAD', 'Inventor', 'Blender', '3DSMax', 'Fusion'] },
+  { name: 'Web Development', skills: ['Vue', 'React', 'Pinia', 'Tailwind CSS'] },
+  {
+    name: 'Collboration',
+    skills: ['Teamwork', 'Conflict resolution', 'Presentation Skills', 'Public Speaking'],
+  },
+  {
+    name: 'Leadership',
+    skills: ['Project leadership', 'Project Management', 'Mentoring', 'Adaptibility'],
+  },
 ]
 </script>
 
