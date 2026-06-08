@@ -17,68 +17,21 @@
     <!-- BODY -->
     <section class="contact-body">
       <div class="container contact-layout">
-        <!-- FORM -->
+        <!-- GOOGLE FORM EMBED -->
         <div class="form-side">
           <p class="side-label">Send a note</p>
-
-          <form @submit.prevent="handleSubmit" class="form">
-            <div class="field">
-              <label class="field-label">Name</label>
-              <input
-                v-model="form.name"
-                type="text"
-                class="field-input"
-                placeholder="Your name"
-                required
-              />
-            </div>
-
-            <div class="field">
-              <label class="field-label">Email</label>
-              <input
-                v-model="form.email"
-                type="email"
-                class="field-input"
-                placeholder="your@email.com"
-                required
-              />
-            </div>
-
-            <div class="field">
-              <label class="field-label">Subject</label>
-              <input
-                v-model="form.subject"
-                type="text"
-                class="field-input"
-                placeholder="What's on your mind?"
-              />
-            </div>
-
-            <div class="field">
-              <label class="field-label">Message</label>
-              <textarea
-                v-model="form.message"
-                class="field-input field-textarea"
-                placeholder="Tell me about your project, idea, or just say hello..."
-                rows="6"
-                required
-              ></textarea>
-            </div>
-
-            <div class="form-foot">
-              <button
-                type="submit"
-                class="send-btn"
-                :class="{ loading: isLoading, sent: isSent }"
-                :disabled="isLoading || isSent"
-              >
-                <span v-if="!isLoading && !isSent">Send message</span>
-                <span v-else-if="isLoading">Sending...</span>
-                <span v-else>Sent ✓ Thank you</span>
-              </button>
-              <p class="form-note"></p>
-            </div>
-          </form>
+          <div class="gform-wrap">
+            <iframe
+              src="YOUR_GOOGLE_FORM_LINK_HERE"
+              class="gform-iframe"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              title="Contact form"
+            >
+              Loading…
+            </iframe>
+          </div>
         </div>
 
         <!-- ASIDE -->
@@ -130,24 +83,6 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-
-const form = reactive({ name: '', email: '', subject: '', message: '' })
-const isLoading = ref(false)
-const isSent = ref(false)
-
-function handleSubmit() {
-  isLoading.value = true
-  setTimeout(() => {
-    isLoading.value = false
-    isSent.value = true
-    setTimeout(() => {
-      isSent.value = false
-      Object.assign(form, { name: '', email: '', subject: '', message: '' })
-    }, 4000)
-  }, 1500)
-}
-
 const contactItems = [
   { label: 'Email', value: 'ryanchen579@gmail.com', href: 'mailto:ryanchen579@gmail.com' },
   { label: 'Location', value: 'Staten Island, New York', href: '#' },
@@ -224,7 +159,7 @@ const socials = [
   padding-top: 5rem;
 }
 
-/* ─── FORM ───────────────────────────────────────────── */
+/* ─── GOOGLE FORM ────────────────────────────────────── */
 .side-label {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -235,91 +170,23 @@ const socials = [
   display: block;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.field-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.field-input {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--rule);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  font-weight: 300;
-  padding: 0.6rem 0;
-  outline: none;
-  transition: border-color 0.25s;
-  resize: none;
-  line-height: 1.7;
+.gform-wrap {
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--bg-warm);
+  /* height adapts to iframe content */
   width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-}
-.field-input::placeholder {
-  color: var(--ink-3);
-  font-style: italic;
-}
-.field-input:focus {
-  border-bottom-color: var(--amber);
-}
-.field-textarea {
-  min-height: 120px;
 }
 
-.form-foot {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  padding-top: 0.75rem;
-}
-
-.send-btn {
-  padding: 0.8rem 2rem;
-  background: var(--ink);
-  color: var(--bg);
+.gform-iframe {
+  width: 100%;
+  /* tall enough for a typical Google Form without internal scrollbars */
+  height: 720px;
   border: none;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.25s;
-}
-.send-btn:hover:not(:disabled) {
-  background: var(--amber);
-}
-.send-btn.sent {
-  background: var(--green);
-}
-.send-btn:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
-.form-note {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: var(--ink-3);
-  font-style: italic;
+  display: block;
+  /* strip the default white Google Form background so it blends */
+  background: transparent;
 }
 
 /* ─── ASIDE ──────────────────────────────────────────── */
@@ -462,22 +329,20 @@ const socials = [
     gap: 4rem;
   }
   .info-side {
-    padding-top: 0;
-    border-top: 1px solid var(--rule);
     padding-top: 3rem;
+    border-top: 1px solid var(--rule);
   }
   .container {
     padding: 0 1.25rem;
   }
+  .gform-iframe {
+    height: 600px;
+  }
 }
 
 @media (max-width: 640px) {
-  .form-foot {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .send-btn {
-    width: 100%;
+  .gform-iframe {
+    height: 520px;
   }
 }
 </style>
