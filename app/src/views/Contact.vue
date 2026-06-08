@@ -22,7 +22,7 @@
           <p class="side-label">Send a note</p>
           <div class="gform-wrap">
             <iframe
-              src="https://docs.google.com/forms/d/1e1aGfFu_aIoYVHLkpBhPge4lcPgVzS0D8d-MRLw9IFo/edit"
+              src="https://forms.gle/xJjHekHrcPx3vsGj8"
               class="gform-iframe"
               frameborder="0"
               marginheight="0"
